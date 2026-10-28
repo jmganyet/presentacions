@@ -9,7 +9,8 @@
   var win = null, panel = null, start = null, last = -1;
 
   function current() {
-    var m = /^#(\d+)$/.exec(location.hash);
+    // En mode escenari el deck manté #N al dia; en mode desplaçament, mana la diapo que hi ha a dalt.
+    var m = document.documentElement.classList.contains("deck-stage") && /^#(\d+)$/.exec(location.hash);
     if (m) return Math.max(0, Math.min(slides.length - 1, Number(m[1]) - 1));
     var best = 0, bestDist = Infinity;
     for (var i = 0; i < slides.length; i++) {
