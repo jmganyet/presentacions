@@ -3638,6 +3638,9 @@ ub.edu</div></div></div></div></div></div></div></div></section>
     // en mode desplaçament no n'amaga cap i mana la que hi ha a dalt.
     var on = slides.filter(function (s) { return !s.hasAttribute("data-off"); });
     if (on.length === 1) return slides.indexOf(on[0]);
+    // Durant una transició n'hi ha dues de visibles: el #N ja apunta a la de destí.
+    var m = on.length < slides.length && /^#(\d+)$/.exec(location.hash);
+    if (m) return Math.max(0, Math.min(slides.length - 1, Number(m[1]) - 1));
     var best = 0, bestDist = Infinity;
     for (var i = 0; i < slides.length; i++) {
       var d = Math.abs(slides[i].getBoundingClientRect().top);
