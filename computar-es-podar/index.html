@@ -1,0 +1,552 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Computar és podar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650&family=Noto+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+/* Els colors i les lletres de lamaquinadepensar.com (theme-nou/assets/css/colors.css): pàgina, tinta, rètols, accent. */
+:root {
+  --c-pagina: #fdfcfa; --c-tinta: #171312; --c-retol: #6d6766; --c-apagat: #908b8a; --c-filet: #ebebeb; --c-fons: #f4f4f4;
+  --c-accent: #a2493d; --c-marca: #fff1a6;
+  --c-putare: #0072b2; --c-ordo: #d55e00;
+  --f-ui: 'Inter', system-ui, sans-serif; --f-text: 'Noto Serif', Georgia, serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html, body { background: #2b2726; height: 100%; margin: 0; overflow: hidden; }
+body { font-family: var(--f-ui); -webkit-font-smoothing: antialiased; }
+/* L'escenari fa 1920 × 1080 i s'escala a la finestra. */
+#esc { background: var(--c-pagina); color: var(--c-tinta); height: 1080px; left: 50%; overflow: hidden; position: absolute; top: 50%; transform-origin: 50% 50%; width: 1920px; }
+.d { display: none; flex-direction: column; height: 100%; padding: 96px 160px 88px; position: absolute; inset: 0; }
+.d.ara { display: flex; }
+.retol { color: var(--c-accent); font: 600 22px/1.2 var(--f-ui); letter-spacing: .08em; margin: 0 0 18px; text-transform: uppercase; }
+.retol.putare { color: var(--c-putare); } .retol.ordo { color: var(--c-ordo); }
+h1, h2 { font-family: var(--f-ui); letter-spacing: -.015em; margin: 0; text-wrap: balance; }
+h2 { font-size: 52px; font-weight: 600; line-height: 1.12; margin-bottom: 40px; }
+.cos { flex: 1; min-height: 0; overflow: hidden; }
+.orig { font: 400 44px/1.5 var(--f-text); margin: 0; text-wrap: pretty; }
+.orig.vers { white-space: pre-line; }
+.trad { color: var(--c-retol); font: 400 28px/1.5 var(--f-text); margin: 28px 0 0; text-wrap: pretty; }
+.trad[data-l]::before { color: var(--c-apagat); content: attr(data-l) ': '; font: 500 20px/1 var(--f-ui); letter-spacing: .06em; text-transform: uppercase; }
+mark { background: var(--c-marca); border-radius: 3px; box-decoration-break: clone; -webkit-box-decoration-break: clone; color: inherit; padding: 0 .08em; }
+.peu { align-items: baseline; border: 0; color: var(--c-apagat); display: flex; font: 400 20px/1.4 var(--f-ui); gap: 24px; justify-content: space-between; margin-top: 32px; }
+.peu a { color: var(--c-retol); text-decoration-color: color-mix(in srgb, var(--c-retol) 40%, transparent); text-underline-offset: .18em; }
+.peu .font { flex: 1; min-width: 0; }
+.boto { background: var(--c-tinta); border: 0; border-radius: 8px; color: #fff; cursor: pointer; flex: none; font: 600 20px/1 var(--f-ui); padding: 14px 20px; touch-action: manipulation; }
+.boto:focus-visible, a:focus-visible { outline: 3px solid var(--c-accent); outline-offset: 3px; }
+.nota { color: var(--c-retol); font: 400 24px/1.5 var(--f-ui); margin: 24px 0 0; }
+.nota b { color: var(--c-tinta); font-weight: 600; }
+/* Portada i separadors de part */
+.d.t-portada, .d.t-part { justify-content: center; }
+.d.t-portada h1 { font-size: 104px; font-weight: 650; line-height: 1.02; }
+.d.t-portada .sub { color: var(--c-retol); font: 400 40px/1.35 var(--f-text); font-style: italic; margin: 32px 0 0; max-width: 1300px; }
+.d.t-portada .qui { color: var(--c-retol); font: 500 24px/1.4 var(--f-ui); margin-top: 72px; }
+.d.t-part .n { color: var(--c-apagat); font: 600 28px/1 var(--f-ui); letter-spacing: .08em; }
+.d.t-part h1 { font-size: 96px; font-weight: 650; line-height: 1.04; margin-top: 20px; }
+.d.t-part .sub { color: var(--c-retol); font: 400 36px/1.4 var(--f-text); font-style: italic; margin-top: 28px; }
+/* Diccionaris */
+.dicc { display: grid; gap: 36px; }
+.dicc .e { border: 0; }
+.dicc .qui { color: var(--c-retol); font: 600 20px/1.2 var(--f-ui); letter-spacing: .06em; margin: 0 0 10px; text-transform: uppercase; }
+.dicc .def { font: 400 40px/1.45 var(--f-text); margin: 0; }
+.dicc .def i { color: var(--c-retol); }
+.dicc.dues { grid-template-columns: 1fr 1fr; gap: 56px; }
+/* Taules */
+table { border-collapse: collapse; font-size: 34px; width: 100%; }
+td, th { padding: 16px 24px 16px 0; text-align: left; vertical-align: baseline; }
+th { color: var(--c-retol); font: 600 20px/1.2 var(--f-ui); letter-spacing: .06em; text-transform: uppercase; }
+td { border-top: 1px solid var(--c-filet); font-family: var(--f-text); }
+td:first-child { font-family: var(--f-ui); font-weight: 500; white-space: nowrap; }
+/* Les dues famílies */
+.fam { display: grid; gap: 64px; grid-template-columns: 1fr 1fr; }
+.fam .arrel { font: 600 64px/1 var(--f-text); font-style: italic; }
+.fam .putare .arrel { color: var(--c-putare); } .fam .ordo .arrel { color: var(--c-ordo); }
+.fam ol { font: 400 34px/1.6 var(--f-text); list-style: none; margin: 28px 0 0; padding: 0; }
+.fam li::before { color: var(--c-apagat); content: '→ '; font-family: var(--f-ui); }
+/* La carta */
+.carta { display: grid; gap: 72px; grid-template-columns: 1.15fr 1fr; }
+.carta .orig { font-size: 34px; }
+.carta .trad { font-size: 26px; margin: 0; }
+.carta .trad::before { content: none; }
+/* Cronograma */
+.cr { font-size: 26px; } .cr td { padding: 6px 24px 6px 0; } .cr td:first-child { color: var(--c-retol); font-variant-numeric: tabular-nums; width: 160px; }
+/* La sinòptica: el text i la traducció frase a frase, a sobre de la diapositiva */
+#sin { background: var(--c-pagina); display: none; flex-direction: column; inset: 0; padding: 72px 120px 64px; position: absolute; z-index: 5; }
+#sin.obert { display: flex; }
+#sin .files { flex: 1; min-height: 0; overflow: hidden; }
+#sin .fila { border-top: 1px solid var(--c-filet); column-gap: 64px; display: grid; grid-template-columns: 1fr 1fr; padding: 14px 0; }
+#sin .fila:first-child { border-top: 0; }
+#sin .o { font: 400 30px/1.45 var(--f-text); }
+#sin .c { color: #3d3837; font: 400 30px/1.45 var(--f-text); }
+#sin .cap { color: var(--c-retol); display: grid; font: 600 20px/1.2 var(--f-ui); grid-template-columns: 1fr 1fr; column-gap: 64px; letter-spacing: .06em; margin-bottom: 12px; text-transform: uppercase; }
+/* Comptador i progrés */
+#comp { bottom: 36px; color: var(--c-apagat); font: 500 20px/1 var(--f-ui); font-variant-numeric: tabular-nums; position: absolute; right: 56px; z-index: 6; }
+#prog { background: var(--c-accent); height: 4px; left: 0; position: absolute; top: 0; transition: width .3s; z-index: 6; }
+
+/* Les fotos (carta, computadores): mai a sang, senceres i sense retocar; la carta, amb les frases marcades i ampliada. */
+.foto { flex: none; overflow: hidden; position: relative; }
+.foto .fi { left: 0; position: absolute; top: 0; }
+.foto img { display: block; height: auto; width: 100%; }
+.foto .mq { background: rgba(255, 214, 0, .42); border-radius: 6px; mix-blend-mode: multiply; position: absolute; }
+.cpag { display: flex; flex: 1; gap: 72px; min-height: 0; }
+.cpag .txt { display: flex; flex: 1; flex-direction: column; min-width: 0; }
+.cpag .txt .cos { flex: 1; }
+.czoom { align-items: center; display: flex; flex-direction: column; gap: 28px; }
+.credit { color: var(--c-apagat); font: 400 18px/1.4 var(--f-ui); margin: 10px 0 0; }
+.t-imatge .cos { align-items: center; display: flex; flex-direction: column; justify-content: center; }
+.t-imatge figure { margin: 0; text-align: center; }
+.t-imatge img { display: block; margin: 0 auto; max-height: 580px; max-width: 1600px; object-fit: contain; }
+.t-imatge figcaption { color: var(--c-retol); font: 400 26px/1.45 var(--f-ui); margin: 20px auto 0; max-width: 1300px; text-wrap: balance; }
+/* La barra de la paraula, amb la llegenda en text */
+.lleg { display: flex; flex-direction: column; gap: 18px; list-style: none; margin: 40px 0 0; padding: 0; }
+.lleg li { align-items: center; display: flex; font: 400 34px/1.3 var(--f-ui); gap: 18px; }
+.lleg li i { border-radius: 4px; flex: none; height: 28px; width: 28px; }
+.lleg li b { font-variant-numeric: tabular-nums; font-weight: 600; }
+/* El DIEC, com un article de diccionari */
+.diec { display: grid; gap: 72px; grid-template-columns: 1fr 1fr; }
+.diec .art { border-top: 3px solid var(--c-tinta); padding-top: 28px; }
+.diec .lema { font: 600 64px/1.1 var(--f-text); }
+.diec .cat { color: var(--c-retol); font: italic 400 34px/1 var(--f-text); margin-left: 12px; }
+.diec ol { font: 400 38px/1.45 var(--f-text); list-style: none; margin: 28px 0 0; padding: 0; }
+.diec li { margin: 0 0 18px; }
+.diec li .n { color: var(--c-accent); font: 600 30px/1 var(--f-ui); margin-right: 12px; }
+.diec li em { color: var(--c-retol); }
+/* Cronograma: dues línies de temps, una diapositiva per època, que llisquen de costat */
+.d.surt { display: flex; }
+/* Navegador: apareix en moure el ratolí */
+#nav { align-items: center; background: rgba(23, 19, 18, .94); border-radius: 14px; bottom: 28px; display: flex; gap: 12px; left: 50%; opacity: 0; padding: 12px 14px; pointer-events: none; position: absolute; transform: translateX(-50%); transition: opacity .45s ease; z-index: 8; }
+@media (prefers-reduced-motion: reduce) { #nav { transition: none; } }
+#nav.vis { opacity: 1; pointer-events: auto; }
+#nav button, #nav select { background: transparent; border: 1px solid rgba(255, 255, 255, .28); border-radius: 8px; color: #fff; cursor: pointer; font: 600 22px/1 var(--f-ui); padding: 12px 18px; touch-action: manipulation; }
+#nav select { max-width: 820px; }
+#nav select option { color: var(--c-tinta); }
+#nav button:hover, #nav select:hover { background: rgba(255, 255, 255, .12); }
+#nav :focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+#totes { background: var(--c-pagina); display: none; inset: 0; overflow-y: auto; overscroll-behavior: contain; padding: 40px 64px 64px; position: absolute; z-index: 9; }
+#totes.obert { display: block; }
+#totes .cap-t { align-items: baseline; display: flex; justify-content: space-between; margin: 0 0 28px; }
+#totes .cap-t h2 { font-size: 40px; margin: 0; }
+#totes .graella { display: grid; gap: 28px; grid-template-columns: repeat(5, 336px); }
+#totes .mini { aspect-ratio: 16 / 9; background: var(--c-pagina); border: 2px solid var(--c-filet); border-radius: 8px; cursor: pointer; overflow: hidden; padding: 0; position: relative; touch-action: manipulation; }
+#totes .mini.ara { border-color: var(--c-accent); }
+#totes .mini:hover { border-color: var(--c-retol); }
+#totes .mini .esc { height: 1080px; left: 0; pointer-events: none; position: absolute; top: 0; transform: scale(.175); transform-origin: 0 0; width: 1920px; }
+#totes .mini .esc .d { display: flex; }
+#totes .mini .num { background: var(--c-pagina); border-radius: 4px; bottom: 6px; color: var(--c-retol); font: 600 18px/1 var(--f-ui); left: 6px; padding: 4px 8px; position: absolute; z-index: 2; }
+@media (prefers-reduced-motion: reduce) { #prog { transition: none; } }
+@media print { html, body { background: #fff; overflow: visible; } #esc { position: static; transform: none !important; } }
+</style>
+</head>
+<body>
+<div id="esc" role="region" aria-roledescription="presentació" aria-label="Computar és podar">
+  <div id="prog"></div>
+  <div id="sin" role="dialog" aria-modal="true" aria-labelledby="sin-t"><p class="retol" id="sin-r"></p><h2 id="sin-t"></h2><div class="cap"><span id="sin-lo">Original</span><span>Traducció</span></div><div class="files" id="sin-f"></div><div class="peu"><span class="font">Tecla T o Esc per tornar a la diapositiva</span><button type="button" class="boto" id="sin-x">Torna al text</button></div></div>
+  <span id="comp" aria-live="polite"></span>
+  <nav id="nav" aria-label="Navegació de la presentació"><button type="button" id="nav-ant" aria-label="Diapositiva anterior">‹</button><label><span class="screen-reader-text" style="position:absolute;left:-9999px">Ves a la diapositiva</span><select id="nav-sel"></select></label><button type="button" id="nav-seg" aria-label="Diapositiva següent">›</button><button type="button" id="nav-totes" aria-pressed="false">Totes</button></nav>
+  <div id="totes" role="dialog" aria-modal="true" aria-label="Totes les diapositives"><div class="cap-t"><h2>Totes les diapositives</h2><button type="button" class="boto" id="totes-x">Tanca</button></div><div class="graella" id="totes-g"></div></div>
+</div>
+<script>
+// La part catalana (recerca a 02.recerca: DIEC2, DCVB, Labèrnia, CTILC).
+window.CATALA = [
+  { t: 'part', n: 'VI', titol: 'En català', sub: 'Comptar i contar, una sola paraula' },
+  { t: 'dicc', fam: 'putare', retol: 'Comptar i contar', titol: 'Qui conta va enumerant', e: [
+    { qui: 'DCVB · contar, etimologia', lang: 'ca', def: 'Del llatí <i>cŏmpŭtāre</i>, ‘comptar’. Es, doncs, la mateixa etimologia de <i>comptar</i> ‘enumerar’, amb canvi de significat, explicable pel fet que ==el qui conta o narra va dient ordenadament, o sia, enumerant==, els incidents i circumstàncies que constitueixen un succeït.' },
+    { qui: 'Ramon Llull, citat al DCVB', lang: 'ca', def: 'Més són los libres on hom escriu e més són los escrivans qui escriuen e més són los ==comtadors== de diners, que no són los hòmens qui ==comten== vostres laors.' } ],
+    nota: 'L’alemany fa el mateix: <em>erzählen</em>, narrar, ve de <em>Zahl</em>, nombre.',
+    font: 'A. M. Alcover i F. de B. Moll, <em>Diccionari català-valencià-balear</em>, s. v. <em>contar</em>; Llull, <em>Llibre de contemplació</em> 284, 7', url: 'https://dcvb.iec.cat/results.asp?word=contar', data: 'consultat el 05/11/2026' },
+  { t: 'dicc', fam: 'putare', retol: 'El Coromines', titol: 'Comptar i contar vénen tots dos de <em>computāre</em>', e: [
+    { qui: 'DECat, s. v. COMPTAR', lang: 'ca', def: 'COMPTAR i CONTAR, vénen tots dos del llatí <i>cŏmpŭtāre</i> ‘calcular’, ‘fer un compte’, derivat de <i>pŭtare</i> ‘comptar’; de la idea d’‘enumerar una sèrie de coses passades semblants’ es va passar al mateix temps a la de ==‘narrar fets que han succeït, contar’==. 1.ª doc.: S. xiii.' },
+    { qui: 'DECat, s. v. COMPTAR', lang: 'ca', def: 'Duplicat savi: ==<i>Computar</i> [1839, Lab.]==; <i>computació</i> (id.); <i>còmput</i> […]; <i>computable</i>; <i>computador</i>; <i>computista</i>.' } ],
+    nota: 'A la nota 1, Coromines explica que la regla de distingir el <em>contar</em> narratiu del <em>comptar</em> aritmètic es va consagrar a finals del segle XIX.',
+    font: 'J. Coromines, <em>Diccionari etimològic i complementari de la llengua catalana</em>, vol. II (1981; 6a ed. 1992), p. 857a i 859b', url: 'https://decat.iec.cat/visor-decat/?volum=II&pagina=857', data: '1981' },
+  { t: 'text', fam: 'putare', retol: 'Comptar · 1284', titol: 'L’any que hom comtava', lang: 'ca', orig: 'En nom de Deu. Coneguda causa sia a totz quel senyor en Jacme, per la gracia de Deu rey de Malorcha, a ==aordonat== e establit en la vila de Perpenya, que d’acsi enant totz temps sia donada reua en la dita vila, en axi co de jos se contendra […]. Ffeyt fo aiso lo primer dia de juliol en l’ayn que hom ==comtava== M.CC.LXXXIIII.',
+    trad: 'Fet fou això el primer dia de juliol de l’any que ==es comptava== 1284. (Al mateix paràgraf, el rei hi «ha ==ordenat==» la lleuda: les dues famílies en una sola frase.)', tradlab: 'En català d’avui',
+    font: 'Tarifa de la lleuda de Perpinyà, ed. Alart, <em>Revue des langues romanes</em> IV (1873), p. 369 (lectura de l’OCR, per confrontar amb la imatge)', url: 'https://archive.org/details/revuedeslanguesr04univuoft', data: '01/07/1284' },
+  { t: 'text', fam: 'putare', retol: 'Contar · el Llibre dels fets', titol: 'Un sarraí arriba nedant i ens conta noves', lang: 'ca', orig: 'E fo ayxi empres quel dimenge reposasse en aquel pug del Pantaleu. E sobre aço lo digmenge a hora de mig dia uench ·I· sarrahi qui hauia nom Ali de la Palomera, nadan a nos, e ==comtans== noues de la Yla, e del Rey, e de la Ciutat.',
+    trad: 'I diumenge, a migdia, va venir un sarraí que es deia Alí de la Palomera, nedant cap a nosaltres, i ens ==contà== noves de l’illa, del rei i de la ciutat.', tradlab: 'En català d’avui',
+    nota: 'Els escrivans antics escrivien igual <em>comptar</em> i <em>contar</em>. La distinció gràfica d’avui, com la del francès <em>compter</em> i <em>conter</em>, és moderna.',
+    font: 'Jaume I, <em>Llibre dels fets</em>, cap. 59 (Santa Ponça), ed. M. Aguiló (1873), a l’Internet Archive', url: 'https://archive.org/details/Llibredelsfets', data: 'setembre del 1229' },
+  { t: 'llista', fam: 'ordo', retol: 'Orde, ordonar, calculador', titol: 'L’altra família, i un ofici', items: [
+    '«Alcú frare del ==orde== de sent Agustí», document del 1298 (DCVB, s. v. <em>orde</em>).',
+    '«Aquella pena pecuniària que l’official reyal ==ordonarà== executadora», document del 1408. El català antic va fer <em>ordonar</em> per influència de <em>donar</em> (DCVB, s. v. <em>ordenar</em>).',
+    '«Moltas vegadas s’esdeve que los ==calculadors== han mes salari de les calculations, que los jutges ne advocats», <em>Constitucions de Catalunya</em> 273: el calculador, abans que una màquina, era un ofici (DCVB, s. v. <em>calculador</em>).' ].map(x => x.replace(/==(.+?)==/g, '<mark>$1</mark>')),
+    font: 'DCVB, s. v. <em>orde</em>, <em>ordenar</em>, <em>calculador</em> (només la frase que en cita el diccionari)', url: 'https://dcvb.iec.cat/results.asp?word=ordenar', data: 'consultat el 05/11/2026' },
+  { t: 'dicc', fam: 'ordo', retol: 'El Coromines', titol: '<em>Orde</em>, <em>ordre</em>, i un <em>ordenador</em> medieval', e: [
+    { qui: 'DECat, s. v. ORDRE', lang: 'ca', def: 'ORDRE, variant moderna d’ORDE, que prové del llatí <i>ŏrdo, -ĭnis</i> id. 1.ª doc.: <i>orde</i>, S. xiii. […] L’evolució d’<i>ordine</i> > <i>orde</i> és normal en català (amb la posttònica <i>e</i> < <i>ĭ</i> conservada davant <i>n</i>, com en <i>home</i> < <i>hŏmĭne</i>, <i>ase</i> < <i>asĭnu</i>).' },
+    { qui: 'DECat, s. v. ORDRE, derivats', lang: 'ca', def: '==<i>Ordenador</i>== [adj. ‘que ordena’, en Llull; <i>ordo-</i>, Llull […]; m. en Muntaner: «— e en cascuna part del mur jo ordoné un mercader, d’aquells mercaders catalans qui hi havia, que fossen ==ordonadors== d’elles»].' } ],
+    nota: 'Abans de la màquina, el català ja tenia l’<em>ordenador</em>: l’adjectiu de Llull i el que posa ordre a les defenses en Muntaner. La forma <em>ordinador</em> d’avui és la culta, refeta sobre el llatí i el francès.',
+    font: 'J. Coromines, <em>Diccionari etimològic i complementari de la llengua catalana</em>, vol. VI (1986), p. 98b i 100b', url: 'https://decat.iec.cat/visor-decat/?volum=VI&pagina=100', data: '1986' },
+  { t: 'dicc', fam: 'putare', retol: 'Computar · el Labèrnia', titol: 'El cultisme ja hi és, però no la persona', e: [
+    { qui: 'Labèrnia, 1864', lang: 'ca', def: '==COMPUTAR==. v. a. Contar, calcular ó examinar per números. Se diu regularment dels anys, temps y edats. <i>Computar. Computo, numero, as.</i>' },
+    { qui: 'Labèrnia, 1864', lang: 'ca', def: '==CÒMPUT==, m. La ciència de computar per las estrellas pera la ordenació del temps. <i>Computo. Calculus.</i>' } ],
+    nota: 'Cap <em>computador</em> a la nomenclatura. Coromines data <em>computar</em> a la primera edició, la del 1839.',
+    font: 'P. Labèrnia, <em>Diccionari de la llengua catalana</em> (Barcelona, Espasa, 1864), vol. 1, a l’Internet Archive', url: 'https://archive.org/details/diccionaridelall01labeuoft', data: '1864' },
+  { t: 'text', fam: 'ordo', retol: 'Ordinador · 1927', titol: 'Una mà orientadora, guiadora, ordinadora', lang: 'ca', orig: 'Perquè Costa pensava possiblement, que més que organitzar l’Estat es requeria per a què Espanya fos europea, desvetllar la Nació, avivar-la amb amor, cridant germans als homes i a les coses que la integraven. […] Que més que mà forta en el govern, precisava una mà delicadament orientadora, guiadora, ==ordinadora== …',
+    nota: 'Encara un adjectiu: la mà que el «cirurgià de ferro» de Joaquín Costa havia de tenir. És l’únic <em>ordinador</em> del corpus abans del 1981.',
+    font: 'Marcel·lí Domingo, <em>On va Catalunya?</em>, al Corpus Textual Informatitzat de la Llengua Catalana (IEC)', url: 'https://ctilc.iec.cat/scripts/CTILCQFitxaLocalitzacio.asp?id=15516768&tok=no&seccio=CTILC1&obra=409', data: '1927' },
+  { t: 'llista', retol: 'La màquina, al corpus de l’IEC', titol: 'Primer <em>computador</em>, després <em>ordinador</em>', items: [
+    '<b>1962.</b> Miquel Siguan: quan la màquina sigui capaç de «llegir», per mitjà de <mark>computadors</mark> electrònics, les instruccions que se li donin.',
+    '<b>1969.</b> Gol, Marquès i altres, sobre la <em>Humanae vitae</em>: l’ús de les <mark>computadores</mark> i dels cervells electrònics.',
+    '<b>1977.</b> David Cardús: la primera <mark>computadora</mark> electrònica en singular del corpus.',
+    '<b>1981.</b> Josep Maria Rosanas: es podrà fer un programa d’<mark>ordinador</mark> que resolgui el problema.' ],
+    nota: 'Al CTILC, <em>ordinador</em> té 3.579 ocurrències; <em>computadora</em>, 198; <em>computador</em>, 50.',
+    font: 'Corpus Textual Informatitzat de la Llengua Catalana (IEC), lemes <em>computador</em>, <em>computadora</em> i <em>ordinador</em>', url: 'https://ctilc.iec.cat/', data: 'consultat el 05/11/2026' },
+];
+window.FETS_CA = [[1229, 'p', 'Jaume I, comtà’ns noves'], [1408, 'o', 'ordonarà'], [1864, 'p', 'Labèrnia, computar'], [1927, 'o', 'Domingo, ordinadora'], [1977, 'p', 'computadora electrònica']];
+</script>
+<script>
+// Les diapositives. `==x==` marca la paraula; els textos llatins porten `frases` [original, traducció], que fan la sinòptica.
+const LC = 'https://penelope.uchicago.edu/Thayer/L/Roman/Texts/Cato/De_Agricultura/A*.html';
+const D = [
+  { t: 'portada', titol: 'Computar és podar', sub: 'D’on vénen <em>computer</em>, <em>computadora</em> i <em>ordinador</em>: dues famílies llatines per a una sola màquina', qui: 'Josep M. Ganyet · Història de la llengua llatina · 2026' },
+  { t: 'taula', retol: 'Una màquina, molts noms', titol: 'Com en diem', cap: ['Llengua', 'Nom', 'Família'], files: [
+    ['Català', '<em>ordinador</em> i <em>computadora</em>', 'totes dues'],
+    ['Castellà d’Espanya', '<em>ordenador</em> i <em>computadora</em>', '<em>ordenador</em>, del francès'],
+    ['Castellà d’Amèrica', '<em>computadora</em>, <em>computador</em>', 'llatí <em>computāre</em>, pel sentit anglès'],
+    ['Francès', '<em>ordinateur</em> (1955)', 'llatí <em>ōrdinātor</em>'],
+    ['Italià', '<em>computer</em> (manllevat de l’anglès)', 'llatí <em>computāre</em>'],
+    ['Anglès', '<em>computer</em>', 'llatí <em>computāre</em>'] ],
+    nota: 'El català s’ha quedat les dues paraules, i el DIEC no les fa sinònimes: la <em>computadora</em> és un ordinador especialitzat en una funció determinada.' },
+  { t: 'diec', retol: 'El diccionari normatiu', titol: 'No són sinònims' },
+  { t: 'families' },
+
+  { t: 'part', n: 'I', titol: '<em>Putāre</em>', sub: 'Podar, fer comptes, pensar' },
+  { t: 'dicc', fam: 'putare', retol: 'Putāre · el diccionari', titol: '<em>Puto</em>: netejar, podar, liquidar un compte, pensar', e: [
+    { qui: 'Lewis & Short, 1879', def: '<i>to clean, cleanse</i> … <i>B In partic., to</i> ==trim, prune, or lop== <i>trees or vines</i> … <i>II Trop., to clear up, set in order</i> … <i>rationem or rationes, to hold a reckoning, reckon together,</i> ==settle accounts== … <i>to reckon, deem, hold, consider</i> … <i>to ponder, consider, reflect upon a thing</i>' },
+    { qui: 'Gaffiot, 1934', def: '<i>nettoyer, rendre propre</i> || ==élaguer, émonder, tailler== || [fig.] <i>mettre au net,</i> ==apurer== : <i>rationem cum aliquo, apurer un compte avec qqn</i> ¶ 2 <i>supputer, compter</i> ¶ 4 ==estimer, penser, croire==' } ],
+    font: 'Lewis & Short, <em>A Latin Dictionary</em> (Oxford, 1879), s. v. <em>puto</em>; F. Gaffiot, <em>Dictionnaire latin-français</em> (1934; ed. 2016), s. v. <em>puto</em>', url: 'https://logeion.uchicago.edu/puto', data: '1879 i 1934' },
+  { t: 'text', fam: 'putare', retol: 'Putāre · podar', titol: 'Cató: començar d’hora a podar', lang: 'la', frases: [
+    ['Vineas arboresque mature face incipias ==putare==.', 'Procura començar d’hora a ==podar== les vinyes i els arbres.'],
+    ['Vites propages in sulcos; susum vorsum, quod eius facere poteris, vitis facito uti ducas.', 'Propaga els ceps en solcs; fes que els ceps pugin cap amunt tant com puguis.'],
+    ['Arbores hoc modo ==putentur==, rami uti divaricentur, quos relinques, et uti recte caedantur et ne nimium crebri relinquantur.', 'Els arbres s’han de ==podar== així: que les branques que deixis quedin separades, que es tallin bé i que no se’n deixin massa d’atapeïdes.'] ],
+    font: 'Cató, <em>De agri cultura</em> 32.1, ed. Hooper i Ash (Loeb, 1934), a LacusCurtius', url: LC, data: 'c. 160 aC' },
+  { t: 'text', fam: 'putare', retol: 'Putāre · fer comptes', titol: 'Cató: el masover fa comptes amb l’amo', lang: 'la', frases: [
+    ['Iniussu domini credat nemini: quod dominus crediderit, exigat.', 'Que no faci crèdit a ningú sense ordre de l’amo; el que l’amo hagi prestat, que ho cobri.'],
+    ['Satui semen, cibaria, far, vinum, oleum mutuum dederit nemini.', 'Que no deixi a ningú llavor per sembrar, menjar, blat, vi ni oli.'],
+    ['Duas aut tres familias habeat, unde utenda roget et quibus det, praeterea nemini.', 'Que tingui dues o tres cases on demanar en préstec el que calgui i a qui deixar-ne, i ningú més.'],
+    ['Rationem cum domino crebro ==putet==.', 'Que ==faci comptes== sovint amb l’amo.'],
+    ['Operarium, mercennarium, politorem diutius eundem ne habeat die.', 'Que no tingui el mateix jornaler, el mateix assalariat o el mateix bracer més d’un dia.'],
+    ['Nequid emisse velit insciente domino, neu quid dominum celavisse velit.', 'Que no vulgui comprar res sense que l’amo ho sàpiga, ni amagar-li res.'] ],
+    font: 'Cató, <em>De agri cultura</em> 5.3–4 (els deures del <em>vilicus</em>), ed. Hooper i Ash (Loeb, 1934)', url: LC, data: 'c. 160 aC' },
+  { t: 'text', fam: 'putare', retol: 'Putāre · fer net', titol: 'Varró: un compte es poda quan la suma en surt neta', lang: 'la', frases: [
+    ['Disputatio et ==computatio== e propositione ==putandi==, quod valet purum facere;', '<em>Disputatio</em> i ==<em>computatio</em>== vénen del sentit de ==<em>putare</em>==, que vol dir «fer net»;'],
+    ['ideo antiqui purum ==putum== appellarunt;', 'per això els antics deien ==<em>putum</em>== al que era pur;'],
+    ['ideo ==putator==, quod arbores puras facit;', 'per això es diu ==<em>putator</em>== (podador), perquè deixa nets els arbres;'],
+    ['ideo ratio ==putari== dicitur, in qua summa fit pura:', 'per això es diu que un compte ==es poda== (<em>putari</em>) quan la suma en surt neta;'],
+    ['sic is sermo in quo pure disponuntur verba, ne sit confusus atque ut diluceat, dicitur ==disputare==.', 'i així, del discurs en què les paraules es disposen netes, perquè no sigui confús i quedi clar, se’n diu ==<em>disputare</em>==.'] ],
+    font: 'Varró, <em>De lingua latina</em> 6.63, ed. R. G. Kent (Loeb, 1938). L&S i Gaffiot el citen com a 5, 9, numeració antiga', url: 'https://archive.org/details/onlatinlanguage01varruoft', data: 'c. 45 aC' },
+  { t: 'text', fam: 'putare', retol: 'Putāre · pensar', titol: 'Terenci: res del que és humà no ho tinc per aliè', lang: 'la', vers: true, frases: [
+    ['MENEDEMUS Chreme, tantumne est ab re tua oti tibi', 'MENEDEM: Cremes, tant de lleure et deixen els teus afers'],
+    ['aliena ut cures, eaque nihil quae ad te attinent?', 'que t’ocupes dels dels altres, de coses que no et toquen gens?'],
+    ['CHREMES Homo sum: humani nihil a me alienum ==puto==.', 'CREMES: Soc home: res del que és humà no ho ==tinc== per aliè.'],
+    ['Vel me monere hoc, vel percontari ==puta==.', '==Fes compte== que t’aconsello o que t’ho pregunto:'],
+    ['Rectum est? ego ut faciam: non est? te ut deterream.', 'si és correcte, perquè jo també ho faci; si no ho és, perquè te’n desviï.'] ],
+    font: 'Terenci, <em>Heauton timorumenos</em> 75–79, ed. Parry (1857), a Perseus. Es cita també amb <em>nil</em>', url: 'https://www.thelatinlibrary.com/ter.heauton.html', data: '163 aC' },
+  { t: 'dicc', fam: 'putare', retol: 'Computāre · el diccionari', titol: '<em>Computo</em> i <em>computator</em>', e: [
+    { qui: 'Lewis & Short, 1879', def: '<b>com-pŭto</b> (conp-) … <i>To sum up, reckon,</i> ==compute== … <i>digitis rationem</i>, Plaut. Mil. … <b>compŭtātor</b>, ōris, m. [computo], ==a computer, reckoner== (post-Aug.): <i>diligentissimi</i>, Sen. Ep. 87, 5' },
+    { qui: 'Gaffiot, 1934', def: '<b>compŭtō</b> ¶ 1 ==calculer, compter, supputer== … <i>copo, computemus</i>, CIL 9, 2689, cabaretier, l’addition ! … <b>compŭtātŏr</b>, ōris, m., ==calculateur== : Sen. Ep. 87, 5' } ],
+    font: 'Lewis & Short (1879) i Gaffiot (1934; ed. 2016), s. v. <em>computo</em>, <em>computator</em>', url: 'https://logeion.uchicago.edu/computo', data: '1879 i 1934' },
+  { t: 'text', fam: 'putare', retol: 'Computāre · comptar amb els dits', titol: 'Plaute: Palestrió rumia un pla', lang: 'la', vers: true, frases: [
+    ['pectus digitis pultat, cor credo evocaturust foras;', 'Es pica el pit amb els dits: em penso que en vol fer sortir el cor.'],
+    ['ecce avortit: nixus laevo in femine habet laevam manum,', 'Mira, es gira: recolzat a la cuixa esquerra, hi té la mà esquerra;'],
+    ['dextera digitis rationem ==computat==, ferit femur', 'amb la dreta ==fa el compte== amb els dits, es pica la cuixa'],
+    ['dexterum. ita vehementer icit: quod agat aegre suppetit.', 'dreta. Tan fort que s’hi pica: no li ve fàcil què ha de fer.'] ],
+    font: 'Plaute, <em>Miles gloriosus</em> 202–205, ed. Leo (1896), a Perseus. L&S: «Mil. 2, 2, 51 (206)»', url: 'https://www.thelatinlibrary.com/plautus/miles.shtml', data: 'c. 205 aC' },
+  { t: 'text', fam: 'putare', retol: 'Computator · el comptable', titol: 'Sèneca: comptables escrupolosíssims', lang: 'la', frases: [
+    ['Contra totius generis humani opiniones mittenda vox erat:', 'Contra l’opinió de tot el gènere humà calia alçar la veu:'],
+    ['«insanitis, erratis, stupetis ad supervacua, neminem aestimatis suo.', '«Esteu bojos, us equivoqueu, us quedeu bocabadats davant del superflu, no valoreu ningú pel que és seu.'],
+    ['Cum ad patrimonium ventum est, diligentissimi ==conputatores== sic rationem ponitis singulorum quibus aut pecuniam credituri estis aut beneficia', 'Quan es tracta del patrimoni, ==comptables== escrupolosíssims, feu així el compte de cadascun d’aquells a qui heu de prestar diners o favors'],
+    ['(nam haec quoque iam expensa fertis):', '(perquè també els favors ja els apunteu com a despesa):'],
+    ['late possidet, sed multum debet; habet domum formosam, sed alienis nummis paratam».', 'té grans finques, però deu molt; té una casa bonica, però pagada amb diners d’altri».'] ],
+    font: 'Sèneca, <em>Epistulae morales</em> 87.5, a The Latin Library. És el primer exemple de <em>computator</em> per a L&S i Gaffiot', url: 'https://www.thelatinlibrary.com/sen/seneca.ep11-13.shtml', data: 'c. 64 dC' },
+  { t: 'llista', fam: 'putare', retol: 'Putāre · d’on ve', titol: 'Una arrel discutida', items: [
+    'Varró ja ho deia: <em>putare</em> és «fer net», i d’aquí <em>putus</em>, «pur».',
+    'Ernout i Meillet en fan el sentit tècnic d’esporgar i, després, el de liquidar un compte, d’on surten comptar i pensar.',
+    'També dubten que sigui una sola arrel: n’hi podria haver una de «tallar» i una de «purificar».',
+    '<em>Computāre</em> s’imposa per comptar i passa a les llengües romàniques: <em>comptar</em>, <em>contar</em>, <em>compte</em>, <em>conte</em>.' ],
+    nota: 'I <em>comte</em> no és de la família, per molt que antigament s’escrivís igual que <em>compte</em>: ve del llatí <em>comes, comĭtis</em>, el company, l’acompanyant (DCVB; Coromines, s. v. <em>comptar</em>, n. 2). L’anglès té el mateix parell: <em>count</em>, comptar, del francès <em>conter</em>, i <em>count</em>, comte, de <em>comes</em>.',
+    font: 'A. Ernout i A. Meillet, <em>Dictionnaire étymologique de la langue latine</em>, 4a ed. (Klincksieck, 1959), s. v. <em>putus, putō</em> i <em>ōrdō</em>. Resum propi', data: '1959' },
+
+  { t: 'part', n: 'II', titol: '<em>Computer</em>', sub: 'Durant segles, una persona' },
+  { t: 'text', fam: 'putare', retol: 'Computer · 1613', titol: 'Brathwait: el computador més veraç dels temps', lang: 'en', orig: 'WHat art thou (O Man) and from whence hadst thou thy beginning? What matter art thou made of, that thou promisest to thy selfe length of daies: or to thy posterity continuance. I haue read the truest ==computer== of Times, and the best Arithmetician that euer breathed, and he reduceth thy dayes into a short number: The daies of Man are threescore and ten.',
+    trad: 'Què ets tu, oh home, i d’on t’ha vingut el començament? De quina matèria estàs fet, que et promets llarga vida, o continuïtat per a la teva descendència? He llegit el ==computador== de temps més veraç i el millor aritmètic que mai ha respirat, i ell redueix els teus dies a un nombre curt: els dies de l’home són setanta anys.',
+    font: 'R. Brathwait (?), <em>The yong mans gleanings</em>, p. 1, a EEBO-TCP A00514 (emissió del 1614, variant de la del 1613)', url: 'https://github.com/textcreationpartnership/A00514', data: '1613' },
+  { t: 'llista', fam: 'putare', retol: 'Computer · persones · anys 1790', titol: 'Prony: una fàbrica de logaritmes', img: { src: 'img/prony-medallo.jpg', w: 1000, h: 992, alt: 'Medalló de bronze amb el perfil de Gaspard de Prony, ja gran, i la inscripció «De Prony»', credit: 'Gaspard de Prony, medalló de Pierre-Jean David d’Angers, 1833. Musée Carnavalet, CC0 (Wikimedia Commons)' }, items: [
+    'La França de la Revolució ho vol mesurar tot en decimal, també els angles. Gaspard de Prony rep l’encàrrec de fer les taules de logaritmes i de trigonometria per al cadastre.',
+    'Ho organitza com la fàbrica d’agulles d’Adam Smith: cinc o sis matemàtics trien les fórmules, set o vuit les converteixen en fulls de feina, i entre seixanta i noranta <mark>calculadors</mark> només han de sumar i restar.',
+    'Molts són <mark>perruquers</mark> que s’han quedat sense clients: els pentinats de l’aristocràcia han caigut amb ella.',
+    'Les taules, dinou volums manuscrits, no es van imprimir mai senceres.' ],
+    font: 'Viquipèdia, «Gaspard de Prony» (segueix I. Grattan-Guinness, «Work for the hairdressers», <em>Annals of the History of Computing</em>, 1990); D. A. Grier, <em>When Computers Were Human</em> (2005). Les dates varien entre fonts: del 1791 o el 1793 al 1800 o el 1801', url: 'https://en.wikipedia.org/wiki/Gaspard_de_Prony', data: 'anys 1790' },
+  { t: 'imatge', fam: 'putare', retol: 'Computer · persones · anys 1790', titol: 'El perruquier, abans de quedar-se sense clients', src: 'img/perruquier-patriote.jpg', w: 1600, h: 1175, alt: 'Gravat d’una perruqueria: perruques penjades i en capçals, un barber que afaita un client, un perruquer que pentina un home cobert amb una capa i un altre que llegeix el diari', peu: '<em>Le Perruquier patriote</em>, caricatura de l’època de la Revolució. Al peu, el perruquier diu: «Je rase le Clergé, je peigne la Noblesse, j’accommode le Tiers-État».', credit: 'Henry William Bunbury (dibuix), gravat de David Weiss i d’un gravador anònim, entre el 1780 i el 1790. Musée Carnavalet, CC0 (Wikimedia Commons)' },
+  { t: 'text', fam: 'putare', retol: 'Computer · 1869', titol: 'Harland: com l’índex d’un computador patentat', lang: 'en', orig: 'Phemie made no reply. Her pen was slowly traversing the length of the page, at an elevation of a quarter of an inch above the paper, her eyes following the course of the nib, as if it were the index of a patent ==computer==.',
+    trad: 'La Phemie no va respondre. La ploma recorria a poc a poc la pàgina de dalt a baix, a un quart de polzada per sobre del paper, i els ulls li seguien el camí del plomí com si fos l’índex d’un ==computador== patentat.',
+    nota: 'És el primer <em>computer</em> que podria ser un aparell. No és segur: <em>patent</em> també pot voler dir «evident».',
+    font: 'Marion Harland, <em>Phemie’s temptation</em> (Nova York, Carleton, 1869), p. 12, a l’Internet Archive', url: 'https://archive.org/details/phemiestemptatio00harliala', data: '1869' },
+  { t: 'imatge', fam: 'putare', retol: 'Computer · persones', titol: 'Les computadores de Harvard, cap al 1891', src: 'img/harvard-computers-1024x801.jpg', w: 1024, h: 801, alt: 'Una sala on vuit dones treballen en taules amb llibres i plaques fotogràfiques; una mira una placa amb una lupa i una altra, dreta al mig, les observa', peu: 'Williamina Fleming és la que està dreta al mig, i Antonia Maury, la que mira la placa amb la lupa. Classificaven els espectres de les estrelles per al catàleg Henry Draper.', credit: 'Foto: Harvard College Observatory, domini públic (Wikimedia Commons)' },
+  { t: 'imatge', fam: 'putare', retol: 'Computer · persones', titol: 'Les computadores de la Moore School, 1946', src: 'img/eniac-jennings-bilas-1024x703.jpg', w: 1024, h: 703, alt: 'Dues dones joves davant dels panells de l’ENIAC: l’una a la consola, l’altra gira un selector d’un panell ple de cables', peu: 'Betty Jennings (a l’esquerra) i Frances Bilas preparen l’ENIAC per a la demostració del febrer del 1946. Eren computadores; van ser-ne les primeres programadores.', credit: 'Foto: fotògraf de l’exèrcit dels Estats Units, domini públic (Wikimedia Commons)' },
+  { t: 'text', fam: 'putare', retol: 'Computer · 1945', titol: 'Von Neumann: el dispositiu és sobretot un «computor»', lang: 'en', orig: '2.2 First: Since the device is primarily a ==computor==, it will have to perform the elementary operations of arithmetics most frequently. There are addition, subtraction, multiplication and division: +, −, ×, ÷. It is therefore reasonable that it should contain specialized organs for just these operations.',
+    trad: 'Primer: com que el dispositiu és sobretot un ==computador==, haurà de fer amb més freqüència les operacions elementals de l’aritmètica. Són la suma, la resta, la multiplicació i la divisió. Per tant, és raonable que tingui òrgans especialitzats precisament per a aquestes operacions.',
+    nota: 'Al mimeògraf original diu <b>computor</b>, amb <em>o</em>; l’edició de Godfrey (1992) ho normalitza a <em>computer</em>. A les definicions de l’inici en diu <em>automatic computing system</em>.',
+    font: 'J. von Neumann, <em>First draft of a report on the EDVAC</em>, Moore School, § 2.2, p. 3, a l’Internet Archive', url: 'https://archive.org/details/firstdraftofrepo00vonn', data: '30/06/1945' },
+  { t: 'imatge', fam: 'putare', retol: 'Computer · persones', titol: 'Katherine Johnson, Langley, 1966', src: 'img/katherine-johnson-1966-812x1024.jpg', w: 812, h: 1024, alt: 'Katherine Johnson, somrient, asseguda al seu escriptori amb un llapis a la mà, entre fulls de càlculs', peu: 'El 1962, abans del seu vol orbital, John Glenn va voler que ella comprovés a mà els números que havia tret l’ordinador.', credit: 'Foto: NASA, domini públic (Wikimedia Commons)' },
+  { t: 'barra' },
+
+  { t: 'part', n: 'III', titol: '<em>Ordo</em>', sub: 'La fila ben posada' },
+  { t: 'dicc', fam: 'ordo', retol: 'Ordo · el diccionari', titol: '<em>Ordo</em>: rengle, ordre, classe', e: [
+    { qui: 'Lewis & Short, 1879', def: '<b>ordo</b>, ĭnis, m. … ==a regular row, line, or series==, methodical arrangement, order … <i>arbores in ordinem satae</i> … <i>C In a polit. respect, an order, i.e.</i> ==a rank, class, degree of citizens== … <i>ordo senatorius, equester</i> … <i>β Esp. (eccl. Lat.), an order in the church</i>' },
+    { qui: 'Gaffiot, 1934', def: '<b>ōrdō</b> I ¶ 1 ==rang, rangée, ligne== : <i>ordines (arborum) directi in quincuncem</i> … ¶ 3 ordre, classe sociale … <i>ordo seul</i> Cic. Cat. 1, 20, ==ordre sénatorial== … II ¶ 1 ordre, succession' } ],
+    font: 'Lewis & Short (1879) i Gaffiot (1934; ed. 2016), s. v. <em>ordo</em>', url: 'https://logeion.uchicago.edu/ordo', data: '1879 i 1934' },
+  { t: 'text', fam: 'ordo', retol: 'Ordo · el senat', titol: 'Ciceró: si aquest orde decreta que te’n vagis', lang: 'la', frases: [
+    ['refer, inquis, ad senatum; id enim postulas et, si hic ==ordo== placere sibi decreverit te ire in exsilium, obtemperaturum te esse dicis.', '«Porta-ho al senat», dius; això demanes, i dius que, si aquest ==orde== decreta que li sembla bé que te’n vagis a l’exili, obeiràs.'],
+    ['non referam, id quod abhorret a meis moribus, et tamen faciam ut intellegas quid hi de te sentiant.', 'No ho portaré, cosa que repugna als meus costums, i tanmateix faré que entenguis què pensen aquests de tu.'],
+    ['egredere ex urbe, Catilina, libera rem publicam metu, in exsilium, si hanc vocem exspectas, proficiscere.', 'Surt de la ciutat, Catilina, allibera la república de la por, vés-te’n a l’exili, si és aquesta la paraula que esperes.'],
+    ['quid est? ecquid attendis, ecquid animadvertis horum silentium? patiuntur, tacent.', 'Què passa? Te n’adones, t’hi fixes, en el silenci d’aquests? Ho toleren, callen.'] ],
+    font: 'Ciceró, <em>In Catilinam</em> I, 20, ed. A. C. Clark (Oxford, 1908), a Perseus', url: 'https://www.thelatinlibrary.com/cicero/cat1.shtml', data: '63 aC' },
+  { t: 'dicc', fam: 'ordo', retol: 'Ordināre, ōrdinātor · el diccionari', titol: 'Posar en ordre, i el qui ho fa', e: [
+    { qui: 'Lewis & Short, 1879', def: '<b>ordĭno</b> [ordo], ==to order, set in order, arrange==, adjust, dispose, regulate … <i>C (Eccl. Lat.) To ordain as a priest</i> … <b>ordĭnātor</b>, ōris, m. [ordino], ==an orderer, regulator, arranger== (post-Aug.): <i>litis, i.e. pleader</i>, Sen. Ep. 109 … II <i>An ordainer</i>' },
+    { qui: 'Gaffiot, 1934', def: '<b>ōrdĭnō</b> ¶ 1 ==mettre en ordre== … ¶ 3 ordonner, faire l’ordination de : Eccl. … <b>ōrdĭnātŏr</b>, ōris, m. (ordino), ==celui qui met en ordre==, qui règle, ordonnateur : <i>litis</i> Sen. Ep. 109, 14, celui qui instruit un procès' } ],
+    font: 'Lewis & Short (1879) i Gaffiot (1934; ed. 2016), s. v. <em>ordino</em>, <em>ordinator</em>', url: 'https://logeion.uchicago.edu/ordinator', data: '1879 i 1934' },
+  { t: 'text', fam: 'ordo', retol: 'Ōrdinātor · primer testimoni', titol: 'Sèneca: el qui instrueix el plet', lang: 'la', frases: [
+    ['Quaeritur enim an deliberaturus sit sapiens, an in consilium aliquem advocaturus.', 'Es pregunta, en efecte, si el savi deliberarà o si cridarà algú a aconsellar-lo.'],
+    ['Quod facere illi necessarium est cum ad haec civilia et domestica venit, ut ita dicam, mortalia;', 'Li cal fer-ho quan arriba a aquests afers civils i domèstics i, per dir-ho així, mortals;'],
+    ['in his sic illi opus est alieno consilio quomodo medico, quomodo gubernatori, quomodo advocato et litis ==ordinatori==.', 'en aquests necessita el consell d’altri igual que el del metge, el del pilot, el de l’advocat i el ==de qui instrueix== el plet.'],
+    ['Proderit ergo sapiens aliquando sapienti; suadebit enim.', 'Per tant, el savi de vegades serà útil al savi: l’aconsellarà.'] ],
+    font: 'Sèneca, <em>Epistulae morales</em> 109.14, a The Latin Library (amb una paraula corrupta a la transcripció, no reconstruïda)', url: 'https://www.thelatinlibrary.com/sen/seneca.ep17-18.shtml', data: 'c. 64 dC' },
+  { t: 'text', fam: 'ordo', retol: 'Ōrdinātor · Déu', titol: 'Agustí: creador i ordenador dels temps', lang: 'la', frases: [
+    ['Si enim recte discernuntur aeternitas et tempus, quod tempus sine aliqua mobili mutabilitate non est, in aeternitate autem nulla mutatio est:', 'Si es distingeixen bé l’eternitat i el temps, perquè el temps no existeix sense alguna mutabilitat en moviment i en l’eternitat no hi ha cap canvi,'],
+    ['quis non uideat, quod tempora non fuissent, nisi creatura fieret, quae aliquid aliqua motione mutaret?', 'qui no veu que no hi hauria hagut temps si no s’hagués fet una criatura que canviés alguna cosa amb algun moviment?'],
+    ['Cum igitur Deus, in cuius aeternitate nulla est omnino mutatio, creator sit temporum et ==ordinator==:', 'Així doncs, com que Déu, en l’eternitat del qual no hi ha cap mutació, és creador i ==ordenador== dels temps,'],
+    ['quo modo dicatur post temporum spatia mundum creasse non uideo, nisi dicatur ante mundum iam aliquam fuisse creaturam, cuius motibus tempora currerent.', 'no veig com es pot dir que va crear el món després d’uns espais de temps, tret que es digui que abans del món ja hi havia alguna criatura amb els moviments de la qual corrien els temps.'] ],
+    font: 'Agustí, <em>De civitate Dei</em> XI, 6, a The Latin Library (abreujat el segon període). També XI 17, XIV 26, XIX 12 i XIX 13', url: 'https://www.thelatinlibrary.com/augustine/civ11.shtml', data: 'c. 417 dC' },
+  { t: 'llista', fam: 'ordo', retol: 'Ordo · d’on ve', titol: 'De la trama del teler a la fila', items: [
+    'Ernout i Meillet hi veuen primer l’ordre dels fils a la trama del teler, i el relacionen amb <em>ōrdior</em>, «ordir, començar una tela».',
+    'Hi apunten un parentiu vague amb <em>artus</em>, <em>armus</em> i <em>ritus</em>, però diuen que el detall de les formes no s’explica.',
+    'D’<em>ordo</em>, <em>ōrdināre</em>, posar en fila; d’aquí, <em>ōrdinātor</em>, el qui posa ordre: primer el que instrueix un plet (Sèneca), després Déu (Agustí) i el bisbe que ordena (llatí eclesiàstic).' ],
+    font: 'A. Ernout i A. Meillet, <em>Dictionnaire étymologique de la langue latine</em>, 4a ed. (1959), s. v. <em>ōrdō</em>; Georges (1913). Resum propi', data: '1959' },
+
+  { t: 'part', n: 'IV', titol: '<em>Ordinateur</em>', sub: 'Un mot de capellans per a una màquina d’IBM' },
+  { t: 'text', fam: 'ordo', retol: 'Ordinateur · 1491', titol: 'El primer testimoni francès: Jesucrist, ordenador del baptisme', lang: 'fr', orig: '1491 [éd.] «celui qui institue quelque chose» (<em>La mer des Histoires</em>, II, 68a […] : Jhesucrist… estoit le nouvel instituteur et ==ordinateur== d’icelluy [baptesme])',
+    trad: '1491: «el qui institueix alguna cosa» (<em>La mer des histoires</em>: Jesucrist… era el nou institutor i ==ordenador== d’aquell [baptisme]).',
+    nota: 'Segons el TLFi, el mot surt després a Bossuet (1703), per al bisbe que confereix els ordes sagrats, i el sentit informàtic el data el <b>1956</b>, no el 1955 de la carta.',
+    font: 'TLFi (CNRTL), s. v. <em>ordinateur</em>, etimologia (cita breu)', url: 'https://www.cnrtl.fr/etymologie/ordinateur', data: 'consultat el 05/11/2026' },
+  { t: 'text', fam: 'ordo', retol: 'Ordinateur · el Littré', titol: 'Al Littré no hi diu Déu', lang: 'fr', orig: '==ordinateur==, trice (or-di-na-teur, tri-s’) adj. 1. ==Qui met l’ordre, qui arrange.== <em>Il pensait que la cause universelle, ordinatrice et première était bonne</em>, Diderot, Opin. des anc. philos. (Pythagorisme). En ce sens on dit aussi ordonnateur. 2. S. m. Celui qui confère un ordre de l’Église. <em>Quel crime c’est… de reconnaître pour Églises celles qui ne peuvent pas rapporter la suite de leurs pasteurs aux apôtres comme à leurs ordinateurs</em>, Bossuet.',
+    trad: '1. Que posa ordre, que arranja. «Pensava que la causa universal, ordenadora i primera era bona», Diderot. 2. Substantiu masculí: el qui confereix un orde de l’Església.',
+    nota: 'Perret escriurà que el Littré en fa un adjectiu de Déu. El Littré diu «qui posa ordre», amb un exemple de Diderot sobre la causa universal. La lectura teològica és de Perret.',
+    font: 'É. Littré, <em>Dictionnaire de la langue française</em>, s. v. <em>ordinateur</em>, a littre.org', url: 'https://www.littre.org/definition/ordinateur', data: '1873' },
+  { t: 'text', fam: 'ordo', retol: 'Ordinateur · el Boiste', titol: 'El qui posa en ordre', lang: 'fr', orig: 'Ordinand, s. m. qui doit recevoir les ordres sacrés.\nOrdinant, s. m. évêque qui confère les ordres sacrés.\n==Ordinateur==, s. m. ==celui qui met en ordre==, r.\nOrdination, s. f. Ordinatio, action de conférer les ordres.', vers: true,
+    trad: 'Ordinateur, s. m.: el qui posa en ordre.',
+    nota: 'El TLFi cita l’edició del 1823; la mateixa definició és a les del 1812 i el 1835. L’Académie no ha recollit mai aquest sentit.',
+    font: 'P.-C.-V. Boiste, <em>Dictionnaire universel de la langue française</em> (París, 1812), a l’Internet Archive', url: 'https://archive.org/details/dictionnaireuni00boisgoog', data: '1812' },
+
+  { t: 'part', n: 'V', titol: 'La carta', sub: 'Jacques Perret a Christian de Waldner, president d’IBM France · 16 d’abril de 1955' },
+  { t: 'llista', retol: 'La carta · el context', titol: 'Un nom francès per a l’IBM 650', items: [
+    'IBM France prepara l’arribada de l’IBM 650 i no vol dir-ne <em>calculateur</em> ni l’anglès <em>computer</em>.',
+    'François Girard, cap de publicitat, havia estudiat amb Jacques Perret, llatinista de la Sorbona i traductor de Virgili.',
+    'La consulta va amb la signatura del president, Christian de Waldner. Perret respon a mà, en quatre pàgines, el 16 d’abril de 1955.',
+    'Loïc Depecker la troba als anys vuitanta en uns arxius de terminologia i la publica a <em>Les Échos</em> el 23 d’abril de 1990: «Le mot ordinateur a trente-cinq ans».' ],
+    font: 'L. Depecker, «Que diriez-vous d’"ordinateur" ?», <em>Bibnum</em> (2015)', url: 'https://journals.openedition.org/bibnum/534', data: '01/06/2015' },
+  { t: 'imatge', fam: 'ordo', retol: 'La carta · la màquina', titol: 'L’IBM 650, la màquina que no tenia nom francès', src: 'img/ibm-650.jpg', w: 1024, h: 839, alt: 'Una sala amb els armaris de l’IBM 650, la consola i una lectora de targetes perforades', peu: 'Un IBM 650 a la Universitat Texas A&M, als anys cinquanta. Va ser la primera màquina comercial d’IBM France.', credit: 'Foto: Cushing Memorial Library and Archives, Texas A&M, CC BY 2.0 (Wikimedia Commons)' },
+  { t: 'cpag', pag: 1, titol: 'Pàgina 1: «Que diriez-vous d’ordinateur ?»', marques: [[.27,.250,.84,.298],[.20,.362,.98,.405],[.20,.405,.87,.447],[.70,.498,.84,.548],[.43,.556,.65,.600],[.66,.588,.97,.636],[.20,.655,.37,.700]],
+    orig: '==Que diriez-vous d’<em>ordinateur</em> ?== c’est un mot correctement formé, qui se trouve même ==dans le Littré comme adjectif désignant Dieu qui met de l’ordre dans le monde==. Un mot de ce genre a l’avantage de donner aisément un verbe ==<em>ordiner</em>==, un nom d’action ==<em>ordination</em>==. L’inconvénient est que <em>ordination</em> désigne ==une cérémonie religieuse== […]',
+    trad: 'Què li semblaria <em>ordinateur</em>? És una paraula ben formada, que fins i tot surt al Littré com a adjectiu que designa Déu que posa ordre al món. Té l’avantatge de donar fàcilment un verb, <em>ordiner</em>, i un nom d’acció, <em>ordination</em>. L’inconvenient és que <em>ordination</em> designa una cerimònia religiosa […]' },
+  { t: 'czoom', pag: 1, reg: [.10,.225,1,.465], marques: [[.27,.250,.84,.298],[.20,.362,.98,.405],[.20,.405,.87,.447]], titol: 'El Littré i Déu',
+    orig: '==Que diriez-vous d’<em>ordinateur</em> ?== c’est un mot correctement formé, qui se trouve même ==dans le Littré comme adjectif désignant Dieu qui met de l’ordre dans le monde==.',
+    trad: 'Què li semblaria <em>ordinateur</em>? És una paraula ben formada, que fins i tot surt al Littré com a adjectiu que designa Déu que posa ordre al món.',
+    nota: 'El Littré diu «qui met l’ordre», amb un exemple de Diderot sobre la causa universal. Déu el posa Perret.' },
+  { t: 'czoom', pag: 1, reg: [.10,.49,1,.715], marques: [[.70,.498,.84,.548],[.43,.556,.65,.600],[.66,.588,.97,.636],[.20,.655,.37,.700]], titol: 'Un verb, un nom d’acció i una cerimònia',
+    orig: 'Un mot de ce genre a l’avantage de donner aisément un verbe ==<em>ordiner</em>==, un nom d’action ==<em>ordination</em>==. L’inconvénient est que <em>ordination</em> désigne ==une cérémonie religieuse== ; mais les deux champs de signification (religion et comptabilité) sont si éloignés […] que l’inconvénient est peut-être mineur.',
+    trad: 'Té l’avantatge de donar fàcilment un verb, <em>ordiner</em>, i un nom d’acció, <em>ordination</em>. L’inconvenient és que <em>ordination</em> designa una cerimònia religiosa; però els dos camps (religió i comptabilitat) són tan allunyats […] que potser l’inconvenient és menor.' },
+  { t: 'cpag', pag: 2, titol: 'Pàgina 2: els mots que no van quedar', marques: [[.30,.050,.50,.098],[.30,.270,.56,.315],[.29,.772,.73,.818],[.29,.858,.58,.905]],
+    orig: '==<em>Systémateur</em>== serait un néologisme, mais qui ne me paraît pas offensant […]. ==<em>Combinateur</em>== a l’inconvénient du sens péjoratif de <em>combine</em> […]. ==<em>Congesteur</em>, <em>digesteur</em>== évoquent trop <em>congestion</em> et <em>digestion</em>. ==<em>Synthétiseur</em>== ne me paraît pas un mot assez neuf […]',
+    trad: '<em>Systémateur</em> seria un neologisme, però no em sembla ofensiu […]. <em>Combinateur</em> té l’inconvenient del sentit pejoratiu de <em>combine</em> […]. <em>Congesteur</em> i <em>digesteur</em> fan pensar massa en <em>congestion</em> i <em>digestion</em>. <em>Synthétiseur</em> no em sembla un mot prou nou […]' },
+  { t: 'czoom', pag: 3, reg: [.10,.335,1,.56], marques: [[.48,.440,.92,.485],[.18,.485,.98,.535]], titol: 'Pàgina 3: «ordinatrice» seria possible',
+    orig: '[…] plusieurs de vos appareils sont désignés par des noms d’agent féminins (==<em>trieuse</em>, <em>tabulatrice</em>==). ==<em>Ordinatrice</em> serait parfaitement possible== et aurait même l’avantage de séparer plus encore votre machine du vocabulaire de la théologie.',
+    trad: '[…] diversos dels seus aparells es designen amb noms d’agent femenins (<em>trieuse</em>, <em>tabulatrice</em>). <em>Ordinatrice</em> seria perfectament possible i fins i tot tindria l’avantatge de separar encara més la seva màquina del vocabulari de la teologia.' },
+  { t: 'czoom', pag: 4, reg: [.10,0,1,.34], marques: [[.20,.060,.62,.100],[.68,.058,1,.103],[.32,.165,.72,.210],[.30,.230,.93,.275],[.18,.285,.92,.330]], titol: 'Pàgina 4: m’inclinaria per «ordinatrice électronique»',
+    orig: '==<em>sélecto-systémateur</em>==. — ==<em>Sélecto-ordinateur</em>== a l’inconvénient des 2 o en hiatus, comme ==<em>électro-ordinatrice</em>==. ==Il me semble que je pencherais pour <em>ordinatrice électronique</em>.==',
+    trad: '<em>Sélecto-ordinateur</em> té l’inconvenient de les dues <em>o</em> en hiat, com <em>électro-ordinatrice</em>. Em sembla que m’inclinaria per <em>ordinatrice électronique</em>.',
+    nota: 'IBM es va quedar el masculí, <em>ordinateur</em>.' },
+  { t: 'czoom', pag: 4, reg: [.28,.745,.95,.995], marques: [], titol: 'La signatura',
+    orig: 'J. Perret — Jacques Perret, professeur à la Sorbonne', trad: 'Signa J. Perret i, a sota, a mà i en majúscules: Jacques Perret, professor a la Sorbona.' },
+
+  '__CATALA__',
+
+  { t: 'crono', i: 0 },
+  { t: 'crono', i: 1 },
+  { t: 'crono', i: 2 },
+  { t: 'crono', i: 3 },
+  { t: 'crono', i: 4 },
+  { t: 'tancament' },
+  { t: 'llista', retol: 'Per llegir-ne més', titol: 'Al web La màquina de pensar', enllacos: [
+    ['Computar és podar', 'https://lamaquinadepensar.com/computar-es-podar/'],
+    ['Quan l’ordinador era Déu', 'https://lamaquinadepensar.com/quan-lordinador-era-deu/'],
+    ['Que diriez-vous d’ordinateur ?', 'https://lamaquinadepensar.com/que-diriez-vous-dordinateur/'],
+    ['Ma mare era una computadora', 'https://lamaquinadepensar.com/ma-mare-era-una-computadora/'] ] },
+];
+
+// ── Pintar ────────────────────────────────────────────────────────────────────────────────────────────────
+const esc = document.getElementById('esc');
+const mk = s => String(s).replace(/==(.+?)==/g, '<mark>$1</mark>');
+const peu = (s, boto) => `<div class="peu"><span class="font">${s.font ? `Font: ${s.url ? `<a href="${s.url}">${s.font}</a>` : s.font}${s.data ? ` · ${s.data}` : ''}` : ''}</span>${boto ? '<button type="button" class="boto" data-sin>Text i traducció ⇄</button>' : ''}</div>`;
+const LLENG = { la: 'Llatí', fr: 'Francès', en: 'Anglès', ca: 'Català' };
+function html(s) {
+  const r = s.retol ? `<p class="retol ${s.fam || ''}">${s.retol}</p>` : '';
+  switch (s.t) {
+    case 'portada': return `<p class="retol">Història de la llengua llatina</p><h1>${s.titol}</h1><p class="sub">${s.sub}</p><p class="qui">${s.qui}</p>`;
+    case 'part': return `<span class="n">${s.n}</span><h1>${s.titol}</h1><p class="sub">${s.sub}</p>`;
+    case 'text': {
+      const o = s.frases ? s.frases.map(f => f[0]).join(s.vers ? '\n' : ' ') : s.orig;
+      return `${r}<h2>${s.titol}</h2><div class="cos ajusta"><p class="orig${s.vers ? ' vers' : ''}" lang="${s.lang}">${mk(o)}</p>${s.trad ? `<p class="trad"${s.tradlab ? ` data-l="${s.tradlab}"` : ''}>${mk(s.trad)}</p>` : ''}${s.nota ? `<p class="nota">${s.nota}</p>` : ''}</div>${peu(s, !!s.frases)}`;
+    }
+    case 'dicc': return `${r}<h2>${s.titol}</h2><div class="cos ajusta"><div class="dicc">${s.e.map(e => `<div class="e"><p class="qui">${e.qui}</p><p class="def" lang="${e.lang || 'en'}">${mk(e.def)}</p></div>`).join('')}</div>${s.nota ? `<p class="nota">${s.nota}</p>` : ''}</div>${peu(s)}`;
+    case 'taula': return `${r}<h2>${s.titol}</h2><div class="cos"><table><thead><tr>${s.cap.map(c => `<th scope="col">${c}</th>`).join('')}</tr></thead><tbody>${s.files.map(f => `<tr>${f.map(c => `<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table>${s.nota ? `<p class="nota">${s.nota}</p>` : ''}</div>${peu(s)}`;
+    case 'llista': return `${r}<h2>${s.titol}</h2><div class="cos ajusta"${s.img ? ' style="display:flex;gap:64px;align-items:flex-start"' : ''}>${s.img ? `<figure style="margin:0;flex:none;width:420px"><img src="${s.img.src}" width="${s.img.w}" height="${s.img.h}" alt="${s.img.alt}" loading="lazy" style="width:420px;height:auto;display:block"><figcaption class="credit">${s.img.credit}</figcaption></figure>` : ''}<ul class="orig" style="padding-left:1.1em;font-size:36px">${(s.items || []).map(i => `<li style="margin:0 0 20px">${i}</li>`).join('')}${(s.enllacos || []).map(([t, u]) => `<li style="margin:0 0 20px"><a href="${u}" style="color:inherit">${t}</a> <span style="color:var(--c-apagat);font:400 24px var(--f-ui)">${u.replace('https://', '')}</span></li>`).join('')}</ul>${s.nota ? `<p class="nota">${s.nota}</p>` : ''}</div>${peu(s)}`;
+    case 'diec': return `${r}<h2>${s.titol}</h2><div class="cos diec">
+      <div class="art"><span class="lema">ordinador</span><span class="cat">m.</span><ol><li><span class="n">1</span>Màquina electrònica digital que permet el processament automàtic, l’obtenció, l’emmagatzematge, la transformació i la comunicació de la informació mitjançant <mark>programes preestablerts</mark>. <em>Ordinador central.</em></li><li><span class="n">2</span><b>ordinador personal</b> Microordinador.</li></ol></div>
+      <div class="art"><span class="lema">computadora</span><span class="cat">f.</span><ol><li><mark>Ordinador especialitzat en una funció determinada.</mark></li></ol><p class="nota" style="font-size:28px">I <b>computador -a</b>: 1 adj. i m. i f. Que computa. 2 m. Computadora.</p></div>
+      </div>${peu({ font: 'Institut d’Estudis Catalans, <em>Diccionari de la llengua catalana</em>, 2a ed. (DIEC2), s. v. <em>ordinador</em> i <em>computadora</em>', url: 'https://dlc.iec.cat/Results?EntradaText=computadora&operEntrada=0', data: 'consultat el 05/11/2026' })}`;
+    case 'imatge': return `${r}<h2>${s.titol}</h2><div class="cos"><figure><img src="${s.src}" width="${s.w}" height="${s.h}" alt="${s.alt}" loading="lazy" style="height:580px;width:auto"><figcaption>${s.peu}<span class="credit" style="display:block">${s.credit}</span></figcaption></figure></div>${peu({})}`;
+    case 'cpag': { const H = 800, W = Math.round(H * 2550 / 3513); return `<div class="cpag">${foto(s.pag, [0, 0, 1, 1], s.marques, W)}<div class="txt"><p class="retol ordo">La carta · pàgina ${s.pag} de 4</p><h2 style="font-size:44px">${s.titol}</h2><div class="cos ajusta"><p class="orig" lang="fr" style="font-size:34px">${mk(s.orig)}</p><p class="trad">${s.trad}</p></div></div></div>${peu(CARTA)}`; }
+    case 'czoom': { const rw = s.reg[2] - s.reg[0], rh = s.reg[3] - s.reg[1], W = Math.round(Math.min(1600, 380 / (rh * 3513 / 2550) * rw)); return `<p class="retol ordo">La carta · pàgina ${s.pag} de 4, ampliada</p><h2 style="margin-bottom:24px">${s.titol}</h2><div class="cos czoom ajusta">${foto(s.pag, s.reg, s.marques, W)}<p class="orig" lang="fr" style="font-size:34px;width:100%">${mk(s.orig)}</p><p class="trad" style="width:100%;margin-top:0">${s.trad}</p>${s.nota ? `<p class="nota" style="width:100%;margin-top:0">${s.nota}</p>` : ''}</div>${peu(CARTA)}`; }
+    case 'carta': return `<p class="retol">La carta · pàgina ${s.pag} de 4</p><h2>${['Què li semblaria «ordinateur»?', 'Els mots que no van quedar', '«Ordinatrice» seria possible', 'M’inclinaria per «ordinatrice électronique»'][s.pag - 1]}</h2><div class="cos ajusta carta"><p class="orig" lang="fr">${mk(s.orig)}</p><p class="trad">${s.trad}</p></div>${peu({ font: 'J. Perret, carta manuscrita a C. de Waldner, transcripció de L. Depecker (<em>Bibnum</em>, 2015) contrastada amb el facsímil; frases rellevants. Arxius d’IBM France', url: 'https://archive.org/details/153Perret', data: '16/04/1955' })}`;
+    case 'families': return `<p class="retol">Dues famílies</p><h2>Una màquina, dues arrels llatines</h2><div class="cos fam"><div class="putare"><span class="arrel">putāre</span><ol><li><em>computāre</em>, comptar-ho tot</li><li><em>comptar</em>, <em>contar</em>, <em>compte</em>, <em>conte</em></li><li><em>computar</em>, <em>computador</em> (culte)</li><li>anglès <em>computer</em>: una persona, després una màquina</li><li><em>computadora</em></li></ol></div><div class="ordo"><span class="arrel">ordo</span><ol><li><em>ōrdināre</em>, posar en fila</li><li><em>ōrdinātor</em>, el qui posa ordre</li><li><em>orde</em>, <em>ordenar</em>, <em>ordinari</em></li><li>francès <em>ordinateur</em> (1955)</li><li><em>ordinador</em></li></ol></div></div>${peu({})}`;
+    case 'barra': return `<p class="retol putare">Computer · la vida d’una paraula</p><h2>Què ha volgut dir <em>computer</em></h2><div class="cos">${barra()}</div>${peu({ font: 'Brathwait (1613), Harland (1869), Online Etymology Dictionary (1897), von Neumann (1945). L’Etymonline data el primer <em>computer</em> humà als anys 1640', url: 'https://www.etymonline.com/word/computer', data: 'consultat el 05/11/2026' })}`;
+    case 'crono': return `<p class="retol">Cronograma · ${s.i + 1} de ${ERES.length}</p><h2>${ERES[s.i][2]}</h2><div class="cos">${crono(s.i)}</div>${peu({})}`;
+    case 'tancament': return `<p class="retol">Per acabar</p><div class="cos" style="display:flex;flex-direction:column;justify-content:center"><p class="orig" style="font-size:64px;line-height:1.25">La màquina porta el nom d’un ==podador de vinyes== i d’un ==Déu que posa ordre==.</p><p class="trad" style="font-size:32px">Del <em>putare</em> de Cató al <em>computer</em> de Brathwait, i de l’<em>ordinator</em> d’Agustí a l’<em>ordinateur</em> de Perret.</p></div>${peu({})}`;
+  }
+  return '';
+}
+function barra() {
+  const de = 1613, fi = 2026, x = a => (a - de) / (fi - de) * 1600;
+  const t = [[1613, 1869, 'Una persona que calcula', 'var(--c-putare)'], [1869, 1945, 'Una persona o un aparell', '#8a7a6c'], [1945, 2026, 'Un ordinador electrònic', 'var(--c-ordo)']];
+  const svg = `<svg width="1600" height="150" viewBox="0 0 1600 150" aria-hidden="true">${t.map(([a, b, n, c]) => `<rect x="${x(a)}" y="20" width="${x(b) - x(a)}" height="64" fill="${c}"/><text x="${x(a)}" y="128" font-size="30" font-weight="600" fill="var(--c-retol)">${a}</text>`).join('')}<text x="1600" y="128" font-size="30" font-weight="600" fill="var(--c-retol)" text-anchor="end">avui</text></svg>`;
+  return svg + `<ul class="lleg">${t.map(([a, b, n, c]) => `<li><i style="background:${c}"></i><span><b>${b - a} anys</b> · ${n.toLowerCase()} <span style="color:var(--c-apagat)">(${a}–${b === 2026 ? 'avui' : b})</span></span></li>`).join('')}</ul>`;
+}
+// La carta: la foto (pàgina sencera o un tros ampliat) amb les frases marcades. `reg` i `marques`, en fraccions de la pàgina.
+const CARTA = { font: 'J. Perret, carta manuscrita a C. de Waldner, 16 d’abril de 1955 (arxius d’IBM France; foto: cortesia d’A. Pesson i del CIGREF, publicada per BibNum a l’Internet Archive). Transcripció de L. Depecker, <em>Bibnum</em> (2015)', url: 'https://archive.org/details/153Perret', data: '16/04/1955' };
+function foto(pag, reg, marques, W) {
+  const rw = reg[2] - reg[0], rh = reg[3] - reg[1], iw = W / rw, ih = iw * 3513 / 2550, H = Math.round(rh * ih);
+  return `<div class="foto" style="width:${W}px;height:${H}px"><div class="fi" style="width:${iw}px;left:${-reg[0] * iw}px;top:${-reg[1] * ih}px"><img src="img/perret-${pag}.jpg" width="2000" height="2755" alt="Pàgina ${pag} de la carta manuscrita de Jacques Perret">${marques.map(m => `<span class="mq" style="left:${m[0] * 100}%;top:${m[1] * 100}%;width:${(m[2] - m[0]) * 100}%;height:${(m[3] - m[1]) * 100}%"></span>`).join('')}</div></div>`;
+}
+// El cronograma: dues línies, la de putāre (a dalt) i la d'ordo (a baix), amb el temps d'abans del 1200 comprimit.
+const FETS = [
+  [-205, 'p', 'Plaute, computat'], [-163, 'p', 'Terenci, puto'], [-160, 'p', 'Cató, putare'], [-63, 'o', 'Ciceró, ordo'], [-45, 'p', 'Varró, computatio'], [64, 'p', 'Sèneca, computator'], [64, 'o', 'Sèneca, ordinator'], [417, 'o', 'Agustí, ordinator'],
+  [1284, 'p', 'hom comtava'], [1298, 'o', 'orde'], [1491, 'o', 'ordinateur'], [1613, 'p', 'Brathwait, computer'], [1703, 'o', 'Bossuet'], [1812, 'o', 'Boiste'], [1791, 'p', 'Prony, calculadors'], [1869, 'p', 'patent computer'], [1945, 'p', 'von Neumann'], [1955, 'o', 'Perret'], [1962, 'p', 'computadors'], [1969, 'p', 'computadores'], [1981, 'o', 'ordinador'] ];
+const ERES = [[-215, -25, 'La república: Plaute, Terenci, Cató, Ciceró, Varró', 25], [0, 450, 'L’imperi i després: Sèneca i Agustí', 50], [1200, 1520, 'L’edat mitjana: comptar, contar, orde', 50], [1580, 1900, 'De Brathwait a Harland', 50], [1900, 2026, 'El segle de la màquina', 25]];
+function crono(e) {
+  const [a0, a1, , pas] = ERES[e], W = 1600, x = a => 40 + (a - a0) / (a1 - a0) * (W - 80);
+  const any = a => a < 0 ? `${-a} aC` : `${a}`;
+  const fets = FETS.concat(window.FETS_CA || []).filter(f => f[0] >= a0 && f[0] < a1).sort((a, b) => a[0] - b[0]);
+  const Y = { p: 300, o: 560 }, usats = { p: [], o: [] };
+  let s = `<svg width="${W}" height="760" viewBox="0 0 ${W} 760" role="img" aria-label="${fets.map(f => any(f[0]) + ', ' + f[2]).join('; ')}">`;
+  s += `<text x="0" y="${Y.p + 40}" font-size="22" font-weight="600" letter-spacing="2" fill="var(--c-putare)">PUTĀRE · COMPUTER</text><line x1="0" x2="${W}" y1="${Y.p}" y2="${Y.p}" stroke="var(--c-putare)" stroke-width="3" opacity=".35"/>`;
+  s += `<text x="0" y="${Y.o - 22}" font-size="22" font-weight="600" letter-spacing="2" fill="var(--c-ordo)">ORDO · ORDINADOR</text><line x1="0" x2="${W}" y1="${Y.o}" y2="${Y.o}" stroke="var(--c-ordo)" stroke-width="3" opacity=".35"/>`;
+  for (let a = Math.ceil(a0 / pas) * pas; a < a1; a += pas) s += `<line x1="${x(a)}" x2="${x(a)}" y1="${Y.p + 60}" y2="${Y.o - 60}" stroke="var(--c-filet)"/><text x="${x(a)}" y="${(Y.p + Y.o) / 2 + 10}" font-size="26" fill="var(--c-apagat)" text-anchor="middle">${any(a)}</text>`;
+  fets.forEach(([a, l, t]) => {
+    const xi = x(a), y = Y[l], c = l === 'p' ? 'var(--c-putare)' : 'var(--c-ordo)', dir = l === 'p' ? -1 : 1;
+    let fila = 0; while (usats[l].some(([u, f]) => f === fila && Math.abs(u - xi) < 300)) fila++; usats[l].push([xi, fila]);
+    const ty = y + dir * (44 + fila * 70), anc = xi > W - 180 ? 'end' : xi < 180 ? 'start' : 'middle';
+    s += `<circle cx="${xi}" cy="${y}" r="11" fill="${c}"/><line x1="${xi}" x2="${xi}" y1="${y + dir * 12}" y2="${ty - dir * (dir < 0 ? 4 : 30)}" stroke="${c}" opacity=".35"/>`;
+    s += `<text x="${xi}" y="${dir < 0 ? ty - 30 : ty}" font-size="30" font-weight="600" fill="var(--c-tinta)" text-anchor="${anc}">${any(a)}</text><text x="${xi}" y="${dir < 0 ? ty : ty + 32}" font-size="26" fill="var(--c-retol)" text-anchor="${anc}">${t}</text>`;
+  });
+  if (e < ERES.length - 1) s += `<text x="${W}" y="${(Y.p + Y.o) / 2 + 60}" font-size="40" fill="var(--c-apagat)" text-anchor="end">→</text>`;
+  return s + '</svg>';
+}
+// Les diapositives catalanes, quan hi siguin (window.CATALA).
+const DD = D.flatMap(s => s === '__CATALA__' ? (window.CATALA || []) : [s]);
+DD.forEach((s, i) => { const e = document.createElement('section'); e.className = 'd t-' + s.t; e.setAttribute('aria-roledescription', 'diapositiva'); e.setAttribute('aria-label', `${i + 1} de ${DD.length}`); e.innerHTML = html(s); esc.insertBefore(e, document.getElementById('sin')); });
+const ds = [...esc.querySelectorAll('.d')];
+
+// El text llarg s'encongeix fins que hi cap (una sola vegada per diapositiva, quan es mostra).
+function ajusta(d) {
+  d.querySelectorAll('.ajusta, #sin .files').forEach(c => {
+    const ts = [...c.querySelectorAll('.orig, .trad, .def, .nota, .o, .c, table')];
+    if (!ts.length) return;
+    ts.forEach(t => { t.style.fontSize = ''; });
+    let k = 1.4;
+    ts.forEach((t, j) => { t.style.fontSize = Math.round(parseFloat(getComputedStyle(t).fontSize) * k) + 'px'; });
+    const base = ts.map(t => parseFloat(getComputedStyle(t).fontSize) / k);
+    while (c.scrollHeight > c.clientHeight + 2 && k > .5) { k -= .04; ts.forEach((t, j) => { t.style.fontSize = Math.round(base[j] * k) + 'px'; }); }
+  });
+}
+// ── Navegar ──────────────────────────────────────────────────────────────────────────────────────────────
+let n = 0;
+const QUIET = matchMedia('(prefers-reduced-motion: reduce)').matches;
+function ves(i) {
+  const ant = n, a = ds[ant];
+  n = Math.max(0, Math.min(ds.length - 1, i));
+  const b = ds[n];
+  ds.forEach((d, j) => d.classList.toggle('ara', j === n));
+  tanca(); ajusta(b);
+  // (Entre dues diapositives del cronograma, la nova entra de costat i la vella surt per l'altre: una sola línia de temps.)
+  if (a !== b && a.classList.contains('t-crono') && b.classList.contains('t-crono') && !QUIET && a.animate) {
+    const s = n > ant ? 1 : -1, op = { duration: 650, easing: 'cubic-bezier(.32, .72, 0, 1)' };
+    a.classList.add('surt');
+    a.animate([{ transform: 'none' }, { transform: `translateX(${-s * 100}%)` }], op).onfinish = () => a.classList.remove('surt');
+    b.animate([{ transform: `translateX(${s * 100}%)` }, { transform: 'none' }], op);
+  }
+  // (En passar de diapositiva, el navegador s'esvaeix; torna en moure el ratolí.)
+  if (a !== b && typeof nav !== 'undefined') { nav.classList.remove('vis'); clearTimeout(tNav); if (nav.contains(document.activeElement)) document.activeElement.blur(); }
+  document.getElementById('comp').textContent = `${n + 1} / ${ds.length}`;
+  document.getElementById('prog').style.width = ((n + 1) / ds.length * 100) + '%';
+  sel.value = n;
+  document.querySelectorAll('#totes .mini').forEach((m, j) => m.classList.toggle('ara', j === n));
+  try { history.replaceState(null, '', '#' + (n + 1)); } catch (e) {}
+}
+// El navegador: surt en moure el ratolí i s'amaga al cap de 2,5 s (no mentre s'hi és a sobre).
+const nav = document.getElementById('nav'), sel = document.getElementById('nav-sel');
+const nomDe = s => (s.titol || s.retol || (s.t === 'barra' ? 'Què ha volgut dir computer' : s.t === 'families' ? 'Una màquina, dues arrels llatines' : s.t === 'crono' ? 'Cronograma ' + (s.i + 1) : s.t === 'tancament' ? 'Per acabar' : s.t === 'cpag' || s.t === 'czoom' ? s.titol : '')).replace(/<[^>]+>/g, '');
+sel.innerHTML = DD.map((s, i) => `<option value="${i}">${i + 1}. ${nomDe(s)}</option>`).join('');
+let tNav = null;
+function mostraNav() { nav.classList.add('vis'); clearTimeout(tNav); tNav = setTimeout(() => { if (!nav.matches(':hover') && !nav.contains(document.activeElement)) nav.classList.remove('vis'); }, 2500); }
+document.addEventListener('mousemove', mostraNav);
+nav.addEventListener('focusin', mostraNav);
+sel.addEventListener('change', () => { ves(+sel.value); sel.blur(); });
+document.getElementById('nav-ant').onclick = () => ves(n - 1);
+document.getElementById('nav-seg').onclick = () => ves(n + 1);
+// Totes les diapositives en miniatura: un clic hi va.
+const totes = document.getElementById('totes'), graella = document.getElementById('totes-g');
+graella.innerHTML = ds.map((d, j) => `<button type="button" class="mini" data-j="${j}" aria-label="${j + 1}. ${nomDe(DD[j]).replace(/"/g, '&quot;')}"><div class="esc"><section class="${d.className.replace(/\bara\b|\bsurt\b/g, '')}">${d.innerHTML.replace(/<(\/?)(button|a)\b/g, '<$1span')}</section></div><span class="num">${j + 1}</span></button>`).join('');
+graella.querySelectorAll('img').forEach(i => { i.loading = 'lazy'; });
+function obreTotes() { totes.classList.add('obert'); document.getElementById('nav-totes').setAttribute('aria-pressed', 'true'); const m = graella.children[n]; m.classList.add('ara'); m.scrollIntoView({ block: 'center' }); m.focus(); }
+function tancaTotes() { totes.classList.remove('obert'); document.getElementById('nav-totes').setAttribute('aria-pressed', 'false'); }
+document.getElementById('nav-totes').onclick = () => totes.classList.contains('obert') ? tancaTotes() : obreTotes();
+document.getElementById('totes-x').onclick = tancaTotes;
+graella.addEventListener('click', e => { const m = e.target.closest('.mini'); if (m) { tancaTotes(); ves(+m.dataset.j); } });
+const sin = document.getElementById('sin');
+function obre() {
+  const s = DD[n]; if (!s.frases) return;
+  document.getElementById('sin-r').innerHTML = s.retol; document.getElementById('sin-t').innerHTML = s.titol;
+  document.getElementById('sin-lo').textContent = LLENG[s.lang] || 'Original';
+  document.getElementById('sin-f').innerHTML = s.frases.map(f => `<div class="fila"><div class="o" lang="${s.lang}">${mk(f[0])}</div><div class="c">${mk(f[1])}</div></div>`).join('');
+  sin.classList.add('obert'); ajusta(sin); document.getElementById('sin-x').focus();
+}
+function tanca() { if (sin.classList.contains('obert')) { sin.classList.remove('obert'); const b = ds[n].querySelector('[data-sin]'); if (b) b.focus(); } }
+esc.addEventListener('click', e => {
+  if (e.target.closest('[data-sin]')) { obre(); return; }
+  if (e.target.closest('#sin-x')) { tanca(); return; }
+  if (e.target.closest('a, button, select, #sin, #nav, #totes')) return;
+  const r = esc.getBoundingClientRect(), f = (e.clientX - r.left) / r.width;
+  if (f > .66) ves(n + 1); else if (f < .2) ves(n - 1);
+});
+document.addEventListener('keydown', e => {
+  if (e.target.closest && e.target.closest('select')) return;
+  if (e.key === 'g' || e.key === 'G') { totes.classList.contains('obert') ? tancaTotes() : obreTotes(); return; }
+  if (e.key === 'Escape') { if (totes.classList.contains('obert')) tancaTotes(); else tanca(); return; }
+  if (totes.classList.contains('obert')) return;
+  if (e.key === 't' || e.key === 'T') { sin.classList.contains('obert') ? tanca() : obre(); return; }
+  if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); ves(n + 1); }
+  else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); ves(n - 1); }
+  else if (e.key === 'Home') ves(0); else if (e.key === 'End') ves(ds.length - 1);
+});
+function escala() { const k = Math.min(innerWidth / 1920, innerHeight / 1080); esc.style.transform = `translate(-50%, -50%) scale(${k})`; }
+addEventListener('resize', escala); escala();
+document.fonts.ready.then(() => ajusta(ds[n]));
+ves((parseInt(location.hash.slice(1), 10) || 1) - 1);
+</script>
+</body>
+</html>
