@@ -112,8 +112,9 @@ html, body { margin: 0; height: 100%; background: #0c0c0c; overflow: hidden; }
 .escena { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
 .deck { position: relative; width: 1920px; height: 1080px; flex: none; transform-origin: 50% 50%; }
 .deck > section { position: absolute; inset: 0; box-sizing: border-box; width: 1920px; height: 1080px; overflow: hidden; }
-.deck > section:not(.actiu) { display: none !important; }
-.deck > section.actiu { animation: entra-diapo 380ms ease both; }
+.deck > section:not(.actiu):not(.sortint) { display: none !important; }
+.deck > section.sortint { z-index: 0; }
+.deck > section.actiu { z-index: 1; animation: entra-diapo 380ms ease both; }
 @keyframes entra-diapo { from { opacity: 0; } }
 .deck p, .deck h1, .deck h2, .deck h3 { margin: 0; }
 .deck * { box-sizing: border-box; }
@@ -133,6 +134,18 @@ video { display: block; }
 .osc .pag { min-width: 96px; padding: 0 8px; text-align: center; font-variant-numeric: tabular-nums; }
 body.inactiu .osc { opacity: 0; pointer-events: none; }
 body.inactiu { cursor: none; }
+.graella { position: fixed; inset: 0; z-index: 20; overflow-y: auto; overscroll-behavior: contain; padding: 32px; background: #0c0c0c; display: none; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px 20px; align-content: start; }
+.graella.oberta { display: grid; }
+body.amb-graella { cursor: auto; }
+body.amb-graella .osc { opacity: 0; pointer-events: none; }
+.graella button { padding: 0; border: 0; background: none; color: #a8a8a1; font: 500 13px/1.4 'IBM Plex Mono', ui-monospace, monospace; text-align: left; cursor: pointer; }
+.graella .mini { position: relative; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 4px; outline: 1px solid #2a2a28; margin-bottom: 6px; }
+.graella button:hover .mini, .graella button:focus-visible .mini { outline: 2px solid #f4f4f1; }
+.graella button.ara .mini { outline: 3px solid #f4f4f1; }
+.graella button.ara { color: #f4f4f1; }
+.graella .mini > section { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; box-sizing: border-box; overflow: hidden; transform-origin: 0 0; pointer-events: none; }
+.graella .mini * { animation: none !important; transition: none !important; }
+.graella .mini .fragment { opacity: 1 !important; }
 @media (prefers-reduced-motion: reduce) { .osc { transition: none; } }
 @media (prefers-reduced-motion: reduce) { .deck * { animation-duration: 1ms !important; animation-iteration-count: 1 !important; } }
 '''
@@ -183,7 +196,8 @@ js = r'''
     n = Math.max(0, Math.min(S.length - 1, n));
     // en canviar de diapo, s'aturen tots els vídeos i àudios del deck, no només els de la diapo que deixem
     deck.querySelectorAll('video').forEach(v => { v.pause(); try { v.currentTime = 0; } catch (e) {} });
-    S.forEach(s => { if (s.classList.contains('actiu')) { atura(s); s.classList.remove('actiu'); } });
+    S.forEach(s => s.classList.remove('sortint'));
+    S.forEach(s => { if (s.classList.contains('actiu')) { atura(s); s.classList.remove('actiu'); if (S.indexOf(s) !== n) { s.classList.add('sortint'); setTimeout(() => s.classList.remove('sortint'), 420); } } });
     i = n; const s = S[i];
     s.querySelectorAll('.fragment').forEach(f => f.classList.remove('visible'));
     void s.offsetWidth; s.classList.add('actiu');
@@ -216,7 +230,8 @@ js = r'''
   osc.innerHTML = `<button type="button" data-a="ant" aria-label="Anterior">${ic('M160 208 80 128l80-80')}</button>`
     + `<span class="pag" aria-live="polite"></span>`
     + `<button type="button" data-a="seg" aria-label="Següent">${ic('m96 48 80 80-80 80')}</button>`
-    + `<button type="button" data-a="pc" aria-label="Pantalla completa">${ic('M168 48h40v40M88 208H48v-40M208 168v40h-40M48 88V48h40')}</button>`;
+    + `<button type="button" data-a="gr" aria-label="Totes les diapos (O)">${ic('M48 48h64v64H48zM144 48h64v64h-64zM48 144h64v64H48zM144 144h64v64h-64z')}</button>`
+    + `<button type="button" data-a="pc" aria-label="Pantalla completa (F)">${ic('M168 48h40v40M88 208H48v-40M208 168v40h-40M48 88V48h40')}</button>`;
   document.body.appendChild(osc);
   const pag = osc.querySelector('.pag');
   const pantalla = () => { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); };
@@ -224,13 +239,46 @@ js = r'''
     e.stopPropagation();
     const b = e.target.closest('button'); if (!b) return;
     b.blur();
-    if (b.dataset.a === 'ant') enrere(); else if (b.dataset.a === 'seg') endavant(); else pantalla();
+    if (b.dataset.a === 'ant') enrere(); else if (b.dataset.a === 'seg') endavant(); else if (b.dataset.a === 'gr') graella(); else pantalla();
   });
   actualitza = () => {
     pag.textContent = `${i + 1} / ${S.length}`;
     osc.querySelector('[data-a="ant"]').disabled = i === 0;
     osc.querySelector('[data-a="seg"]').disabled = i === S.length - 1 && pas >= P.length;
   };
+  // graella: miniatures estàtiques de totes les diapos (sense animacions, amb els clics fets)
+  const gr = document.createElement('div');
+  gr.className = 'graella'; gr.setAttribute('role', 'dialog'); gr.setAttribute('aria-label', 'Totes les diapos');
+  document.body.appendChild(gr);
+  let feta = false;
+  function omple() {
+    S.forEach((s, k) => {
+      const b = document.createElement('button'); b.type = 'button'; b.dataset.k = k;
+      const m = document.createElement('div'); m.className = 'mini';
+      const c = s.cloneNode(true); c.classList.remove('actiu', 'sortint'); c.removeAttribute('id');
+      c.querySelectorAll('video').forEach(v => { const im = document.createElement('img'); im.src = v.poster; im.setAttribute('style', v.getAttribute('style') || ''); im.className = v.className; v.replaceWith(im); });
+      m.appendChild(c); b.appendChild(m); b.append(String(k + 1)); gr.appendChild(b);
+    });
+    feta = true;
+  }
+  function escalaMinis() { gr.querySelectorAll('.mini').forEach(m => { m.firstChild.style.transform = `scale(${m.clientWidth / 1920})`; }); }
+  function graella(obre) {
+    const o = obre ?? !gr.classList.contains('oberta');
+    if (o) {
+      if (!feta) omple();
+      gr.classList.add('oberta'); document.body.classList.add('amb-graella'); escalaMinis();
+      gr.querySelectorAll('button').forEach(b => b.classList.toggle('ara', +b.dataset.k === i));
+      const ara = gr.querySelector('button.ara'); if (ara) { ara.scrollIntoView({ block: 'center' }); ara.focus(); }
+    } else { gr.classList.remove('oberta'); document.body.classList.remove('amb-graella'); }
+  }
+  gr.addEventListener('click', e => { e.stopPropagation(); const b = e.target.closest('button'); if (b) { graella(false); mostra(+b.dataset.k); } });
+  addEventListener('resize', () => { if (gr.classList.contains('oberta')) escalaMinis(); });
+  addEventListener('keydown', e => {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key === 'o' || e.key === 'O') { e.preventDefault(); e.stopImmediatePropagation(); graella(); }
+    else if (e.key === 'Escape' && gr.classList.contains('oberta')) { e.preventDefault(); e.stopImmediatePropagation(); graella(false); }
+    else if (gr.classList.contains('oberta')) { e.stopImmediatePropagation(); }
+  }, true);
   let tem;
   const actiu = () => { document.body.classList.remove('inactiu'); clearTimeout(tem); tem = setTimeout(() => document.body.classList.add('inactiu'), 2000); };
   ['mousemove', 'mousedown', 'touchend'].forEach(t => document.addEventListener(t, actiu, { passive: true }));
