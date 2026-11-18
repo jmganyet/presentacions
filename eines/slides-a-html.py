@@ -170,6 +170,8 @@ js = r'''
   function atura(s) { s.querySelectorAll('video').forEach(v => { v.pause(); try { v.currentTime = 0; } catch (e) {} }); }
   function mostra(n, alFinal) {
     n = Math.max(0, Math.min(S.length - 1, n));
+    // en canviar de diapo, s'aturen tots els vídeos i àudios del deck, no només els de la diapo que deixem
+    deck.querySelectorAll('video').forEach(v => { v.pause(); try { v.currentTime = 0; } catch (e) {} });
     S.forEach(s => { if (s.classList.contains('actiu')) { atura(s); s.classList.remove('actiu'); } });
     i = n; const s = S[i];
     s.querySelectorAll('.fragment').forEach(f => f.classList.remove('visible'));
@@ -200,6 +202,7 @@ js = r'''
   addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) (dx < 0 ? endavant : enrere)(); x0 = null; });
   function escala() { const k = Math.min(innerWidth / 1920, innerHeight / 1080); deck.style.transform = `scale(${k})`; }
   addEventListener('resize', escala); escala();
+  document.addEventListener('visibilitychange', () => { if (document.hidden) deck.querySelectorAll('video').forEach(v => v.pause()); });
   const h = parseInt(location.hash.slice(1), 10);
   mostra(Number.isFinite(h) ? h - 1 : 0);
 })();
