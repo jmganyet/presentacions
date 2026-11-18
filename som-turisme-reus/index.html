@@ -136,6 +136,17 @@ html, body { margin: 0; height: 100%; background: #0c0c0c; overflow: hidden; }
 .retall > img { width: 100%; height: 100%; object-fit: cover; }
 .imgw { animation: puja 1100ms cubic-bezier(.16,1,.3,1) both; animation-delay: calc(260ms + var(--i, 0) * 110ms); }
 video { display: block; }
+/* Navegador (com el de les presentacions Marp de la UPF): surt en moure el punter i s'amaga als 2 s, amb el cursor */
+.osc { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 10; display: flex; align-items: center; gap: 2px; padding: 6px; border-radius: 12px; background: rgba(20, 20, 19, .78); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); color: #f4f4f1; font: 500 15px/1 'IBM Plex Mono', ui-monospace, monospace; transition: opacity .3s ease; }
+.osc button { display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 8px; background: transparent; color: inherit; cursor: pointer; touch-action: manipulation; }
+.osc button:hover { background: rgba(255, 255, 255, .14); }
+.osc button:focus-visible { outline: 2px solid #f4f4f1; outline-offset: -2px; }
+.osc button:disabled { opacity: .35; cursor: default; background: transparent; }
+.osc svg { width: 22px; height: 22px; }
+.osc .pag { min-width: 96px; padding: 0 8px; text-align: center; font-variant-numeric: tabular-nums; }
+body.inactiu .osc { opacity: 0; pointer-events: none; }
+body.inactiu { cursor: none; }
+@media (prefers-reduced-motion: reduce) { .osc { transition: none; } }
 @media (prefers-reduced-motion: reduce) { .deck * { animation-duration: 1ms !important; animation-iteration-count: 1 !important; } }
 
 </style>
@@ -968,7 +979,7 @@ video { display: block; }
     s.querySelectorAll('video[data-pas]').forEach(v => p.push({ video: v }));
     return p;
   }
-  let i = 0, pas = 0, P = [];
+  let i = 0, pas = 0, P = [], actualitza = () => {};
   function atura(s) { s.querySelectorAll('video').forEach(v => { v.pause(); try { v.currentTime = 0; } catch (e) {} }); }
   function mostra(n, alFinal) {
     n = Math.max(0, Math.min(S.length - 1, n));
@@ -982,11 +993,13 @@ video { display: block; }
     s.querySelectorAll('video:not([data-pas])').forEach(v => { v.currentTime = 0; v.play().catch(() => {}); });
     if (alFinal) while (pas < P.length && !P[pas].video) fes();
     history.replaceState(null, '', '#' + (i + 1));
+    actualitza();
   }
   function fes() {
     const q = P[pas++];
     if (q.fr) q.fr.forEach(f => f.classList.add('visible'));
     if (q.video) { q.video.currentTime = 0; q.video.play().catch(() => {}); }
+    actualitza();
   }
   const endavant = () => { if (pas < P.length) fes(); else if (i < S.length - 1) mostra(i + 1); };
   const enrere = () => { if (i > 0) mostra(i - 1, true); };
@@ -998,7 +1011,33 @@ video { display: block; }
     else if (e.key === 'End') mostra(S.length - 1);
     else if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); }
   });
-  addEventListener('click', e => { if (!e.target.closest('a')) endavant(); });
+  // navegador
+  const ic = d => `<svg viewBox="0 0 256 256" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" d="${d}"/></svg>`;
+  const osc = document.createElement('nav');
+  osc.className = 'osc'; osc.setAttribute('aria-label', 'Navegació de la presentació');
+  osc.innerHTML = `<button type="button" data-a="ant" aria-label="Anterior">${ic('M160 208 80 128l80-80')}</button>`
+    + `<span class="pag" aria-live="polite"></span>`
+    + `<button type="button" data-a="seg" aria-label="Següent">${ic('m96 48 80 80-80 80')}</button>`
+    + `<button type="button" data-a="pc" aria-label="Pantalla completa">${ic('M168 48h40v40M88 208H48v-40M208 168v40h-40M48 88V48h40')}</button>`;
+  document.body.appendChild(osc);
+  const pag = osc.querySelector('.pag');
+  const pantalla = () => { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); };
+  osc.addEventListener('click', e => {
+    e.stopPropagation();
+    const b = e.target.closest('button'); if (!b) return;
+    b.blur();
+    if (b.dataset.a === 'ant') enrere(); else if (b.dataset.a === 'seg') endavant(); else pantalla();
+  });
+  actualitza = () => {
+    pag.textContent = `${i + 1} / ${S.length}`;
+    osc.querySelector('[data-a="ant"]').disabled = i === 0;
+    osc.querySelector('[data-a="seg"]').disabled = i === S.length - 1 && pas >= P.length;
+  };
+  let tem;
+  const actiu = () => { document.body.classList.remove('inactiu'); clearTimeout(tem); tem = setTimeout(() => document.body.classList.add('inactiu'), 2000); };
+  ['mousemove', 'mousedown', 'touchend'].forEach(t => document.addEventListener(t, actiu, { passive: true }));
+  setTimeout(actiu, 0);
+  addEventListener('click', e => { if (!e.target.closest('a, .osc')) endavant(); });
   let x0 = null;
   addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, { passive: true });
   addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) (dx < 0 ? endavant : enrere)(); x0 = null; });
