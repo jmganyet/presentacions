@@ -300,6 +300,7 @@ pagina = f'''<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
 <title>{H.escape(titol)}</title>
 {''.join(f'<link rel="stylesheet" href="{H.escape(u)}">' + chr(10) for u in fonts)}<style>
 {css}
