@@ -124,6 +124,9 @@ html, body { margin: 0; height: 100%; background: #0c0c0c; overflow: hidden; }
 .retall > img { width: 100%; height: 100%; object-fit: cover; }
 .imgw { animation: puja 1100ms cubic-bezier(.16,1,.3,1) both; animation-delay: calc(260ms + var(--i, 0) * 110ms); }
 video { display: block; }
+/* Comptador (count-up de Slides): el número es pinta amb un comptador CSS que anima --n de 0 al valor final */
+.compta { counter-reset: n var(--n); }
+.compta::before { content: counter(n); }
 /* Navegador (com el de les presentacions Marp de la UPF): surt en moure el punter i s'amaga als 2 s, amb el cursor */
 .osc { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 10; display: flex; align-items: center; gap: 2px; padding: 6px; border-radius: 12px; background: rgba(20, 20, 19, .78); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); color: #f4f4f1; font: 500 15px/1 'IBM Plex Mono', ui-monospace, monospace; transition: opacity .3s ease; }
 .osc button { display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 8px; background: transparent; color: inherit; cursor: pointer; touch-action: manipulation; }
@@ -175,6 +178,11 @@ js = r'''
     img.style.objectPosition = `${x} ${y}`; img.style.transformOrigin = `${x} ${y}`; img.style.scale = z;
     img.replaceWith(w); w.appendChild(img);
   });
+  // comptadors: el text («571») passa a ser el valor final de --n, i l'animació de Slides el fa pujar des de 0
+  deck.querySelectorAll('.compta').forEach(el => {
+    const v = parseInt(el.textContent.replace(/[^0-9]/g, ''), 10);
+    if (Number.isFinite(v)) { el.style.setProperty('--n', v); el.setAttribute('aria-label', el.textContent.trim()); el.textContent = ''; }
+  });
   // Paul Bunyans i altres bucles: la imatge que torna a sortir es posa al davant
   let z = 10;
   deck.querySelectorAll('.bun').forEach(img => {
@@ -187,7 +195,8 @@ js = r'''
     const grups = new Map(); let seg = 1000;
     fr.forEach(f => { const k = f.dataset.fragmentIndex !== undefined ? +f.dataset.fragmentIndex : seg++; if (!grups.has(k)) grups.set(k, []); grups.get(k).push(f); });
     const p = [...grups.keys()].sort((a, b) => a - b).map(k => ({ fr: grups.get(k) }));
-    s.querySelectorAll('video[data-pas]').forEach(v => p.push({ video: v }));
+    // vídeo o àudio: un clic l'engega, el següent l'atura (per poder-se parar a explicar) i el següent passa de diapo
+    s.querySelectorAll('video[data-pas]').forEach(v => { p.push({ video: v }); p.push({ pausa: v }); });
     return p;
   }
   let i = 0, pas = 0, P = [], actualitza = () => {};
@@ -203,7 +212,7 @@ js = r'''
     void s.offsetWidth; s.classList.add('actiu');
     P = passos(s); pas = 0;
     s.querySelectorAll('video:not([data-pas])').forEach(v => { v.currentTime = 0; v.play().catch(() => {}); });
-    if (alFinal) while (pas < P.length && !P[pas].video) fes();
+    if (alFinal) while (pas < P.length && !P[pas].video && !P[pas].pausa) fes();
     history.replaceState(null, '', '#' + (i + 1));
     actualitza();
   }
@@ -211,6 +220,7 @@ js = r'''
     const q = P[pas++];
     if (q.fr) q.fr.forEach(f => f.classList.add('visible'));
     if (q.video) { q.video.currentTime = 0; q.video.play().catch(() => {}); }
+    if (q.pausa) q.pausa.pause();
     actualitza();
   }
   const endavant = () => { if (pas < P.length) fes(); else if (i < S.length - 1) mostra(i + 1); };
