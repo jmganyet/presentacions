@@ -1029,11 +1029,11 @@ body.amb-graella .osc { opacity: 0; pointer-events: none; }
     const grups = new Map(); let seg = 1000;
     fr.forEach(f => { const k = f.dataset.fragmentIndex !== undefined ? +f.dataset.fragmentIndex : seg++; if (!grups.has(k)) grups.set(k, []); grups.get(k).push(f); });
     const p = [...grups.keys()].sort((a, b) => a - b).map(k => ({ fr: grups.get(k) }));
-    // vídeo o àudio: un clic l'engega, el següent l'atura (per poder-se parar a explicar) i el següent passa de diapo
-    s.querySelectorAll('video[data-pas]').forEach(v => { p.push({ video: v }); p.push({ pausa: v }); });
+    // vídeo o àudio: arriba parat i el primer clic endavant l'engega; després, vegeu endavant() i enrere()
+    s.querySelectorAll('video[data-pas]').forEach(v => p.push({ video: v }));
     return p;
   }
-  let i = 0, pas = 0, P = [], actualitza = () => {};
+  let i = 0, pas = 0, P = [], med = null, actualitza = () => {};
   function atura(s) { s.querySelectorAll('video').forEach(v => { v.pause(); try { v.currentTime = 0; } catch (e) {} }); }
   function mostra(n, alFinal) {
     n = Math.max(0, Math.min(S.length - 1, n));
@@ -1044,21 +1044,28 @@ body.amb-graella .osc { opacity: 0; pointer-events: none; }
     i = n; const s = S[i];
     s.querySelectorAll('.fragment').forEach(f => f.classList.remove('visible'));
     void s.offsetWidth; s.classList.add('actiu');
-    P = passos(s); pas = 0;
+    P = passos(s); pas = 0; med = null;
     s.querySelectorAll('video:not([data-pas])').forEach(v => { v.currentTime = 0; v.play().catch(() => {}); });
-    if (alFinal) while (pas < P.length && !P[pas].video && !P[pas].pausa) fes();
+    if (alFinal) while (pas < P.length && !P[pas].video) fes();
     history.replaceState(null, '', '#' + (i + 1));
     actualitza();
   }
   function fes() {
     const q = P[pas++];
     if (q.fr) q.fr.forEach(f => f.classList.add('visible'));
-    if (q.video) { q.video.currentTime = 0; q.video.play().catch(() => {}); }
-    if (q.pausa) q.pausa.pause();
+    if (q.video) { med = q.video; med.currentTime = 0; med.play().catch(() => {}); }
     actualitza();
   }
-  const endavant = () => { if (pas < P.length) fes(); else if (i < S.length - 1) mostra(i + 1); };
-  const enrere = () => { if (i > 0) mostra(i - 1, true); };
+  // Media engegat: endavant l'atura si sona i, si està aturat, passa de diapo;
+  // enrere el reprèn si està aturat i, si sona, torna a la diapo anterior. Així es pot parar i reprendre a voluntat.
+  const endavant = () => {
+    if (med && !med.paused) { med.pause(); return; }
+    if (pas < P.length) fes(); else if (i < S.length - 1) mostra(i + 1);
+  };
+  const enrere = () => {
+    if (med && med.paused) { med.play().catch(() => {}); return; }
+    if (i > 0) mostra(i - 1, true);
+  };
   addEventListener('keydown', e => {
     if (e.metaKey || e.ctrlKey || e.altKey) return;
     if (['ArrowRight', 'ArrowDown', 'PageDown', ' ', 'Enter', 'n', 'N'].includes(e.key)) { e.preventDefault(); endavant(); }
