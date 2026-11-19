@@ -117,6 +117,13 @@ section.fosc .num span { color: #f4f4f1; }
 .time-you { animation: time-in 600ms ease-out both; animation-delay: 10.3s; }
 .peu-fi { animation: apareix 500ms ease both; animation-delay: 10.6s; }
 
+/* Diapo 16: els Paul Bunyans en quadrats 2x2 a banda i banda del tuit de Julià, que no es mou.
+   Surten del centre cap a fora i de dalt a baix */
+@keyframes ala-e { from { opacity: 0; transform: translateX(60px); } }
+@keyframes ala-d { from { opacity: 0; transform: translateX(-60px); } }
+.ala-e { animation: ala-e 900ms cubic-bezier(.16,1,.3,1) both; animation-delay: calc(300ms + var(--i, 0) * 180ms); }
+.ala-d { animation: ala-d 900ms cubic-bezier(.16,1,.3,1) both; animation-delay: calc(300ms + var(--i, 0) * 180ms); }
+
 .fragment { opacity: 0; }
 .fragment.visible { opacity: 1; transition: opacity 400ms ease; }
 
@@ -171,14 +178,15 @@ body.amb-graella .osc { opacity: 0; pointer-events: none; }
 <body>
 <div class="escena"><div class="deck">
 <section id="880d7460" data-flat style="background:#0c0c0c">
+<p class="fix" style="position:absolute;left:0px;top:510px;width:1920px;text-align:center;font-family:'Inter Tight',sans-serif;font-size:30px;font-weight:500;letter-spacing:-0.01em;line-height:1.2;color:#f4f4f1">La IA no existeix, <span style="color:#7a7a75">i la feina tampoc</span></p>
 </section>
 <section id="r02" class="entre" data-transition="fade">
 <div class="cap">
-<div class="prog"><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
+<div class="prog"><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
 <div class="mapa">
 <p class="mp ara" style="left:0px">00. hola</p>
-<p class="mp" style="left:185px">01. la IA no existeix</p>
-<p class="mp" style="left:878px">02. la feina tampoc</p>
+<p class="mp" style="left:180px">01. la IA no existeix</p>
+<p class="mp" style="left:899px">02. la feina tampoc</p>
 </div>
 </div>
 <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:32px;align-items:end">
@@ -192,11 +200,11 @@ body.amb-graella .osc { opacity: 0; pointer-events: none; }
 </section>
 <section id="r01" class="entre" data-transition="fade">
 <div class="cap">
-<div class="prog"><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
+<div class="prog"><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
 <div class="mapa">
 <p class="mp ara" style="left:0px">00. hola</p>
-<p class="mp" style="left:185px">01. la IA no existeix</p>
-<p class="mp" style="left:878px">02. la feina tampoc</p>
+<p class="mp" style="left:180px">01. la IA no existeix</p>
+<p class="mp" style="left:899px">02. la feina tampoc</p>
 </div>
 </div>
 <div class="col">
@@ -208,11 +216,11 @@ body.amb-graella .osc { opacity: 0; pointer-events: none; }
 </section>
 <section id="r03" class="fosc peu-on" data-transition="fade">
 <div class="cap">
-<div class="prog"><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
+<div class="prog"><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
 <div class="mapa">
 <p class="mp ara" style="left:0px">00. hola</p>
-<p class="mp" style="left:185px">01. la IA no existeix</p>
-<p class="mp" style="left:878px">02. la feina tampoc</p>
+<p class="mp" style="left:180px">01. la IA no existeix</p>
+<p class="mp" style="left:899px">02. la feina tampoc</p>
 </div>
 </div>
 <img data-pas="1" src="media/793295b3452c2d91f27251d1e9f60dde.jpg" data-video="media/411f184a12621f88aa8ed6447bc38de8.mp4" data-video-sound="on" alt="Un robot cambrer s'espatlla en directe en una connexió d'Els Matins de TV3 des d'Alimentària" style="width:1664px;height:680px;object-fit:contain">
@@ -221,12 +229,12 @@ body.amb-graella .osc { opacity: 0; pointer-events: none; }
 </section>
 <section id="r06" class="entre" data-transition="fade">
 <div class="cap">
-<div class="prog"><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
+<div class="prog"><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
 <div class="mapa">
 <p class="mp ara" style="left:0px">00. hola</p>
-<p class="mp" style="left:185px">01. la IA no existeix</p>
-<p class="mp" style="left:878px">02. la feina tampoc</p>
-<p class="mp" style="left:1248px">03. morirem tots</p>
+<p class="mp" style="left:180px">01. la IA no existeix</p>
+<p class="mp" style="left:899px">02. la feina tampoc</p>
+<p class="mp" style="left:1259px">03. morirem tots</p>
 </div>
 </div>
 <div style="display:flex;flex-direction:column">
@@ -247,12 +255,12 @@ body.amb-graella .osc { opacity: 0; pointer-events: none; }
 </section>
 <section id="r07" class="entre" data-transition="fade">
 <div class="cap">
-<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
+<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
 <div class="mapa">
 <p class="mp" style="left:0px">00. hola</p>
-<p class="mp ara" style="left:185px">01. la IA no existeix</p>
-<p class="mp" style="left:878px">02. la feina tampoc</p>
-<p class="mp" style="left:1248px">03. morirem tots</p>
+<p class="mp ara" style="left:180px">01. la IA no existeix</p>
+<p class="mp" style="left:899px">02. la feina tampoc</p>
+<p class="mp" style="left:1259px">03. morirem tots</p>
 </div>
 </div>
 <div class="col">
@@ -263,12 +271,12 @@ body.amb-graella .osc { opacity: 0; pointer-events: none; }
 </section>
 <section id="r08" class="peu-on" data-transition="fade">
 <div class="cap">
-<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
+<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
 <div class="mapa">
 <p class="mp" style="left:0px">00. hola</p>
-<p class="mp ara" style="left:185px">01. la IA no existeix</p>
-<p class="mp" style="left:878px">02. la feina tampoc</p>
-<p class="mp" style="left:1248px">03. morirem tots</p>
+<p class="mp ara" style="left:180px">01. la IA no existeix</p>
+<p class="mp" style="left:899px">02. la feina tampoc</p>
+<p class="mp" style="left:1259px">03. morirem tots</p>
 </div>
 </div>
 <div style="flex:1;display:grid;grid-template-columns:600px 1fr;gap:32px">
@@ -286,12 +294,12 @@ body.amb-graella .osc { opacity: 0; pointer-events: none; }
 <section id="ef631c49" class="entre" data-transition="fade">
 <div style="display:flex;flex-direction:column;gap:48px">
 <div class="cap">
-<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
+<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
 <div class="mapa">
 <p class="mp" style="left:0px">00. hola</p>
-<p class="mp ara" style="left:185px">01. la IA no existeix</p>
-<p class="mp" style="left:878px">02. la feina tampoc</p>
-<p class="mp" style="left:1248px">03. morirem tots</p>
+<p class="mp ara" style="left:180px">01. la IA no existeix</p>
+<p class="mp" style="left:899px">02. la feina tampoc</p>
+<p class="mp" style="left:1259px">03. morirem tots</p>
 </div>
 </div>
 <h2 class="titol">Set segles de persones</h2>
@@ -327,12 +335,12 @@ body.amb-graella .osc { opacity: 0; pointer-events: none; }
 </section>
 <section id="r09" data-transition="fade">
 <div class="cap">
-<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
+<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
 <div class="mapa">
 <p class="mp" style="left:0px">00. hola</p>
-<p class="mp ara" style="left:185px">01. la IA no existeix</p>
-<p class="mp" style="left:878px">02. la feina tampoc</p>
-<p class="mp" style="left:1248px">03. morirem tots</p>
+<p class="mp ara" style="left:180px">01. la IA no existeix</p>
+<p class="mp" style="left:899px">02. la feina tampoc</p>
+<p class="mp" style="left:1259px">03. morirem tots</p>
 </div>
 </div>
 <div class="duo">
@@ -349,12 +357,12 @@ body.amb-graella .osc { opacity: 0; pointer-events: none; }
 </section>
 <section id="r15" class="peu-on" data-transition="fade">
 <div class="cap">
-<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
+<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
 <div class="mapa">
 <p class="mp" style="left:0px">00. hola</p>
-<p class="mp ara" style="left:185px">01. la IA no existeix</p>
-<p class="mp" style="left:878px">02. la feina tampoc</p>
-<p class="mp" style="left:1248px">03. morirem tots</p>
+<p class="mp ara" style="left:180px">01. la IA no existeix</p>
+<p class="mp" style="left:899px">02. la feina tampoc</p>
+<p class="mp" style="left:1259px">03. morirem tots</p>
 </div>
 </div>
 <div class="duo">
@@ -377,12 +385,12 @@ body.amb-graella .osc { opacity: 0; pointer-events: none; }
 </section>
 <section id="r11" class="entre" data-transition="fade">
 <div class="cap">
-<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
+<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
 <div class="mapa">
 <p class="mp" style="left:0px">00. hola</p>
-<p class="mp ara" style="left:185px">01. la IA no existeix</p>
-<p class="mp" style="left:878px">02. la feina tampoc</p>
-<p class="mp" style="left:1248px">03. morirem tots</p>
+<p class="mp ara" style="left:180px">01. la IA no existeix</p>
+<p class="mp" style="left:899px">02. la feina tampoc</p>
+<p class="mp" style="left:1259px">03. morirem tots</p>
 </div>
 </div>
 <p class="enunciat" style="width:1400px">La IA no existeix:&nbsp;<br>és la suma&nbsp;<br>de moltes&nbsp;<br>intel·ligències <span class="acc">humanes</span>.</p>
@@ -430,12 +438,12 @@ body.amb-graella .osc { opacity: 0; pointer-events: none; }
 </section>
 <section id="r12" data-transition="fade" style="display:grid;grid-template-columns:392px 1fr 1fr;grid-template-rows:auto 1fr;gap:48px 32px">
 <div class="cap" style="grid-column:span 3">
-<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
+<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
 <div class="mapa">
 <p class="mp" style="left:0px">00. hola</p>
-<p class="mp ara" style="left:185px">01. la IA no existeix</p>
-<p class="mp" style="left:878px">02. la feina tampoc</p>
-<p class="mp" style="left:1248px">03. morirem tots</p>
+<p class="mp ara" style="left:180px">01. la IA no existeix</p>
+<p class="mp" style="left:899px">02. la feina tampoc</p>
+<p class="mp" style="left:1259px">03. morirem tots</p>
 </div>
 </div>
 <div style="display:flex;flex-direction:column;justify-content:end;gap:24px">
@@ -454,12 +462,12 @@ body.amb-graella .osc { opacity: 0; pointer-events: none; }
 </section>
 <section id="r13a" class="fosc peu-on" data-transition="fade">
 <div class="cap">
-<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
+<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
 <div class="mapa">
 <p class="mp" style="left:0px">00. hola</p>
-<p class="mp ara" style="left:185px">01. la IA no existeix</p>
-<p class="mp" style="left:878px">02. la feina tampoc</p>
-<p class="mp" style="left:1248px">03. morirem tots</p>
+<p class="mp ara" style="left:180px">01. la IA no existeix</p>
+<p class="mp" style="left:899px">02. la feina tampoc</p>
+<p class="mp" style="left:1259px">03. morirem tots</p>
 </div>
 </div>
 <img src="media/04d31ea451efc7a552b2368de393e84b.png" alt="Tuit de Daniel Julià, «Fet amb un apunt al midjourney»: quatre gegants de Messi generats amb IA enmig de la gentada" style="width:1664px;height:680px;object-fit:contain">
@@ -513,26 +521,49 @@ body.amb-graella .osc { opacity: 0; pointer-events: none; }
 <div style="position:absolute;left:17px;top:206px;width:221px;height:287px;transform:rotate(7.0deg)"><img class="bun" src="media/4f5c952099a85ed452eb6be1700fe25f.jpg" alt="Paul Bunyan, St. Ignace, Michigan" style="width:221px;height:287px;object-fit:cover;animation-delay:13850ms"></div>
 </div>
 <div class="cap">
-<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
+<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
 <div class="mapa">
 <p class="mp" style="left:0px">00. hola</p>
-<p class="mp ara" style="left:185px">01. la IA no existeix</p>
-<p class="mp" style="left:878px">02. la feina tampoc</p>
-<p class="mp" style="left:1248px">03. morirem tots</p>
+<p class="mp ara" style="left:180px">01. la IA no existeix</p>
+<p class="mp" style="left:899px">02. la feina tampoc</p>
+<p class="mp" style="left:1259px">03. morirem tots</p>
 </div>
 </div>
 
 <p class="peu">Paul Bunyans dels EUA i el Canadà · Wikimedia Commons (diverses llicències CC i domini públic) · Fernie Forge</p>
 <p class="num">gegants&nbsp;&nbsp;·&nbsp;&nbsp;<span>15</span></p>
 </section>
-<section id="r14" class="fosc peu-on" data-transition="fade">
+<section id="1dbdad77" class="fosc peu-on" data-transition="fade">
 <div class="cap">
-<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
+<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
 <div class="mapa">
 <p class="mp" style="left:0px">00. hola</p>
-<p class="mp ara" style="left:185px">01. la IA no existeix</p>
-<p class="mp" style="left:878px">02. la feina tampoc</p>
-<p class="mp" style="left:1248px">03. morirem tots</p>
+<p class="mp ara" style="left:180px">01. la IA no existeix</p>
+<p class="mp" style="left:899px">02. la feina tampoc</p>
+<p class="mp" style="left:1259px">03. morirem tots</p>
+</div>
+</div>
+
+<p class="peu">Paul Bunyans de Bangor, Kenton, Old Forge, Akeley, Ossineke, Portland, Eau Claire i Fargo · Wikimedia Commons</p>
+<p class="num">gegants&nbsp;&nbsp;·&nbsp;&nbsp;<span>16</span></p>
+<img class="fix" src="media/04d31ea451efc7a552b2368de393e84b.png" alt="Tuit de Daniel Julià, «Fet amb un apunt al midjourney»: quatre gegants de Messi generats amb IA enmig de la gentada" style="position:absolute;left:128px;top:230px;width:1664px;height:680px;object-fit:contain" id="59609cef">
+<div class="ala-e" style="position:absolute;left:379px;top:329px;width:269px;height:269px;overflow:hidden;border-top-right-radius:8px;--i:0"><img class="fix" src="media/406aa49b7634b649a716b06f72df1c30.jpg" alt="Paul Bunyan de Bangor, Maine" style="position:absolute;left:0px;top:-0px;width:269px;height:359px"></div>
+<div class="ala-e" style="position:absolute;left:110px;top:329px;width:269px;height:269px;overflow:hidden;border-top-left-radius:8px;--i:1"><img class="fix" src="media/c97b9084f70ee0dfb18e12a3072fba2a.jpg" alt="Paul Bunyan de Kenton, Ohio" style="position:absolute;left:0px;top:-20px;width:269px;height:404px"></div>
+<div class="ala-e" style="position:absolute;left:379px;top:598px;width:269px;height:269px;overflow:hidden;border-bottom-right-radius:8px;--i:2"><img class="fix" src="media/355b7216931523da20971bee6a9c47fe.jpg" alt="Paul Bunyan d'Old Forge, Nova York" style="position:absolute;left:0px;top:-18px;width:269px;height:387px"></div>
+<div class="ala-e" style="position:absolute;left:110px;top:598px;width:269px;height:269px;overflow:hidden;border-bottom-left-radius:8px;--i:3"><img class="fix" src="media/62bc4233947d5df3b0689a2b20524caf.jpg" alt="Paul Bunyan agenollat d'Akeley, Minnesota, amb una noia asseguda a la mà" style="position:absolute;left:0px;top:-9px;width:269px;height:330px"></div>
+<div class="ala-d" style="position:absolute;left:1266px;top:329px;width:269px;height:269px;overflow:hidden;border-top-left-radius:8px;--i:0"><img class="fix" src="media/99a21dbee67e393e587dd2a797beb272.jpg" alt="Paul Bunyan d'Ossineke, Michigan" style="position:absolute;left:0px;top:-0px;width:269px;height:358px"></div>
+<div class="ala-d" style="position:absolute;left:1535px;top:329px;width:269px;height:269px;overflow:hidden;border-top-right-radius:8px;--i:1"><img class="fix" src="media/d4dda5a2789751b55e62302410415e03.jpg" alt="Paul Bunyan de Portland, Oregon" style="position:absolute;left:0px;top:-0px;width:269px;height:409px"></div>
+<div class="ala-d" style="position:absolute;left:1266px;top:598px;width:269px;height:269px;overflow:hidden;border-bottom-left-radius:8px;--i:2"><img class="fix" src="media/0a1a726a47cfd3b357183b8ff88d0043.jpg" alt="Paul Bunyan i el bou Babe d'Eau Claire, Wisconsin" style="position:absolute;left:0px;top:-12px;width:269px;height:346px"></div>
+<div class="ala-d" style="position:absolute;left:1535px;top:598px;width:269px;height:269px;overflow:hidden;border-bottom-right-radius:8px;--i:3"><img class="fix" src="media/0011ae5b3430389b354215ef32964578.jpg" alt="Paul Bunyan de la pel·lícula Fargo" style="position:absolute;left:0px;top:-14px;width:269px;height:359px"></div>
+</section>
+<section id="r14" class="fosc peu-on" data-transition="fade">
+<div class="cap">
+<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
+<div class="mapa">
+<p class="mp" style="left:0px">00. hola</p>
+<p class="mp ara" style="left:180px">01. la IA no existeix</p>
+<p class="mp" style="left:899px">02. la feina tampoc</p>
+<p class="mp" style="left:1259px">03. morirem tots</p>
 </div>
 </div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px">
@@ -540,30 +571,30 @@ body.amb-graella .osc { opacity: 0; pointer-events: none; }
 <img src="media/6f5cc88c11710c5f0cffc35a8d818694.jpg" alt="Gegants reis generats amb un LoRA entrenat amb gegants catalans" style="width:816px;height:680px;object-fit:contain">
 </div>
 <p class="peu">Gegants amb un LoRA de Stable Diffusion, via Xavi Vinaixa</p>
-<p class="num">gegants&nbsp;&nbsp;·&nbsp;&nbsp;<span>16</span></p>
+<p class="num">gegants&nbsp;&nbsp;·&nbsp;&nbsp;<span>17</span></p>
 </section>
 <section id="r13" class="fosc peu-on" data-transition="fade">
 <div class="cap">
-<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
+<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
 <div class="mapa">
 <p class="mp" style="left:0px">00. hola</p>
-<p class="mp ara" style="left:185px">01. la IA no existeix</p>
-<p class="mp" style="left:878px">02. la feina tampoc</p>
-<p class="mp" style="left:1248px">03. morirem tots</p>
+<p class="mp ara" style="left:180px">01. la IA no existeix</p>
+<p class="mp" style="left:899px">02. la feina tampoc</p>
+<p class="mp" style="left:1259px">03. morirem tots</p>
 </div>
 </div>
 <img src="media/a23d92227ce426eeddfe5ace7107d94e.jpg" alt="Gegant de Messi generat amb IA enmig de la gentada" style="width:1664px;height:680px;object-fit:contain">
 <p class="peu">Gegant de Messi, fet amb Midjourney · Daniel Julià, X, 4/5/2023</p>
-<p class="num">gegants&nbsp;&nbsp;·&nbsp;&nbsp;<span>17</span></p>
+<p class="num">gegants&nbsp;&nbsp;·&nbsp;&nbsp;<span>18</span></p>
 </section>
 <section id="r04" data-transition="fade">
 <div class="cap">
-<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
+<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
 <div class="mapa">
 <p class="mp" style="left:0px">00. hola</p>
-<p class="mp ara" style="left:185px">01. la IA no existeix</p>
-<p class="mp" style="left:878px">02. la feina tampoc</p>
-<p class="mp" style="left:1248px">03. morirem tots</p>
+<p class="mp ara" style="left:180px">01. la IA no existeix</p>
+<p class="mp" style="left:899px">02. la feina tampoc</p>
+<p class="mp" style="left:1259px">03. morirem tots</p>
 </div>
 </div>
 <div style="display:grid;gap:32px;align-items:end;grid-template-columns:1fr 1fr 1fr 1fr;flex:1">
@@ -584,16 +615,16 @@ body.amb-graella .osc { opacity: 0; pointer-events: none; }
 <p class="m">The Matrix, 1999</p>
 </div>
 </div>
-<p class="num">la tradició&nbsp;&nbsp;·&nbsp;&nbsp;<span>18</span></p>
+<p class="num">la tradició&nbsp;&nbsp;·&nbsp;&nbsp;<span>19</span></p>
 </section>
 <section id="r05" data-transition="fade">
 <div class="cap">
-<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
+<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
 <div class="mapa">
 <p class="mp" style="left:0px">00. hola</p>
-<p class="mp ara" style="left:185px">01. la IA no existeix</p>
-<p class="mp" style="left:878px">02. la feina tampoc</p>
-<p class="mp" style="left:1248px">03. morirem tots</p>
+<p class="mp ara" style="left:180px">01. la IA no existeix</p>
+<p class="mp" style="left:899px">02. la feina tampoc</p>
+<p class="mp" style="left:1259px">03. morirem tots</p>
 </div>
 </div>
 <div class="duo">
@@ -608,32 +639,32 @@ body.amb-graella .osc { opacity: 0; pointer-events: none; }
 <img src="media/91e70c70d6ee52ee486502d246c788c3.png" alt="Doraemon i els seus amics volant amb hèlixs al cap" style="width:840px;height:680px;object-fit:contain">
 </div>
 </div>
-<p class="num">l'altra tradició&nbsp;&nbsp;·&nbsp;&nbsp;<span>19</span></p>
+<p class="num">l'altra tradició&nbsp;&nbsp;·&nbsp;&nbsp;<span>20</span></p>
 </section>
 <section id="r17" class="entre" data-transition="fade">
 <div class="cap">
-<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
+<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
 <div class="mapa">
 <p class="mp" style="left:0px">00. hola</p>
-<p class="mp" style="left:185px">01. la IA no existeix</p>
-<p class="mp ara" style="left:878px">02. la feina tampoc</p>
-<p class="mp" style="left:1248px">03. morirem tots</p>
+<p class="mp" style="left:180px">01. la IA no existeix</p>
+<p class="mp ara" style="left:899px">02. la feina tampoc</p>
+<p class="mp" style="left:1259px">03. morirem tots</p>
 </div>
 </div>
 <div class="col">
 <p class="mega num-sec">02</p>
 <h2 class="enunciat">la feina tampoc</h2>
 </div>
-<p class="num"><span>20</span></p>
+<p class="num"><span>21</span></p>
 </section>
 <section id="r18" data-transition="fade">
 <div class="cap">
-<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
+<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
 <div class="mapa">
 <p class="mp" style="left:0px">00. hola</p>
-<p class="mp" style="left:185px">01. la IA no existeix</p>
-<p class="mp ara" style="left:878px">02. la feina tampoc</p>
-<p class="mp" style="left:1248px">03. morirem tots</p>
+<p class="mp" style="left:180px">01. la IA no existeix</p>
+<p class="mp ara" style="left:899px">02. la feina tampoc</p>
+<p class="mp" style="left:1259px">03. morirem tots</p>
 </div>
 </div>
 <div class="duo">
@@ -646,30 +677,30 @@ body.amb-graella .osc { opacity: 0; pointer-events: none; }
 </div>
 <img src="media/c990cf96be548b9d4c2197a76625709e.png" alt="Geoffrey Hinton" style="width:840px;height:680px;object-fit:contain">
 </div>
-<p class="num">hinton, 2016&nbsp;&nbsp;·&nbsp;&nbsp;<span>21</span></p>
+<p class="num">hinton, 2016&nbsp;&nbsp;·&nbsp;&nbsp;<span>22</span></p>
 </section>
 <section id="r18b" class="fosc peu-on" data-transition="fade">
 <div class="cap">
-<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
+<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
 <div class="mapa">
 <p class="mp" style="left:0px">00. hola</p>
-<p class="mp" style="left:185px">01. la IA no existeix</p>
-<p class="mp ara" style="left:878px">02. la feina tampoc</p>
-<p class="mp" style="left:1248px">03. morirem tots</p>
+<p class="mp" style="left:180px">01. la IA no existeix</p>
+<p class="mp ara" style="left:899px">02. la feina tampoc</p>
+<p class="mp" style="left:1259px">03. morirem tots</p>
 </div>
 </div>
 <img src="media/13cd3e466846dc2541621511efbebeaf.jpg" alt="El coiot suspès a l'aire: you don't fall until you look down" style="width:1664px;height:680px;object-fit:contain">
 <p class="peu">Looney Tunes (Warner Bros.), meme</p>
-<p class="num">el coiot&nbsp;&nbsp;·&nbsp;&nbsp;<span>22</span></p>
+<p class="num">el coiot&nbsp;&nbsp;·&nbsp;&nbsp;<span>23</span></p>
 </section>
 <section id="r20a" class="peu-on" data-transition="fade">
 <div class="cap">
-<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
+<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
 <div class="mapa">
 <p class="mp" style="left:0px">00. hola</p>
-<p class="mp" style="left:185px">01. la IA no existeix</p>
-<p class="mp ara" style="left:878px">02. la feina tampoc</p>
-<p class="mp" style="left:1248px">03. morirem tots</p>
+<p class="mp" style="left:180px">01. la IA no existeix</p>
+<p class="mp ara" style="left:899px">02. la feina tampoc</p>
+<p class="mp" style="left:1259px">03. morirem tots</p>
 </div>
 </div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:0px 32px">
@@ -695,17 +726,17 @@ body.amb-graella .osc { opacity: 0; pointer-events: none; }
 </div>
 </div>
 <p class="peu">Looney Tunes (Warner Bros.)</p>
-<p class="num">el coiot&nbsp;&nbsp;·&nbsp;&nbsp;<span>23</span></p>
+<p class="num">el coiot&nbsp;&nbsp;·&nbsp;&nbsp;<span>24</span></p>
 <p class="cos" style="position:absolute;top:412px;left:128px;width:522px;box-sizing:border-box">Velocitat punta<br>Lidera sota pressió<br>Sempre un pas endavant<br>Comunica clar: «mec, mec»<br>Cap objectiu perdut</p>
 </section>
 <section id="r20" class="peu-on" data-transition="fade">
 <div class="cap">
-<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
+<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
 <div class="mapa">
 <p class="mp" style="left:0px">00. hola</p>
-<p class="mp" style="left:185px">01. la IA no existeix</p>
-<p class="mp ara" style="left:878px">02. la feina tampoc</p>
-<p class="mp" style="left:1248px">03. morirem tots</p>
+<p class="mp" style="left:180px">01. la IA no existeix</p>
+<p class="mp ara" style="left:899px">02. la feina tampoc</p>
+<p class="mp" style="left:1259px">03. morirem tots</p>
 </div>
 </div>
 <div style="display:grid;grid-template-columns:392px 1fr 1fr;gap:0px 32px">
@@ -720,16 +751,16 @@ body.amb-graella .osc { opacity: 0; pointer-events: none; }
 <p class="sub" style="border-bottom:1px solid #cfcfca;padding:24px 0px 24px 0px"><span class="acc">cambrers*</span><br>cuiners<br>cambreres de pis<br>socorristes</p>
 </div>
 <p class="peu">Adaptació de la tesi d'Autor, Levy i Murnane (2003) · *el robot d'Alimentària, 2024</p>
-<p class="num">matriu&nbsp;&nbsp;·&nbsp;&nbsp;<span>24</span></p>
+<p class="num">matriu&nbsp;&nbsp;·&nbsp;&nbsp;<span>25</span></p>
 </section>
 <section id="r19" class="entre peu-on" data-transition="fade">
 <div class="cap">
-<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
+<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
 <div class="mapa">
 <p class="mp" style="left:0px">00. hola</p>
-<p class="mp" style="left:185px">01. la IA no existeix</p>
-<p class="mp ara" style="left:878px">02. la feina tampoc</p>
-<p class="mp" style="left:1248px">03. morirem tots</p>
+<p class="mp" style="left:180px">01. la IA no existeix</p>
+<p class="mp ara" style="left:899px">02. la feina tampoc</p>
+<p class="mp" style="left:1259px">03. morirem tots</p>
 </div>
 </div>
 <div class="col">
@@ -741,29 +772,29 @@ body.amb-graella .osc { opacity: 0; pointer-events: none; }
 <p class="entrada">+9% en un any. 4.333 places obertes.</p>
 </div>
 <p class="peu">Font: Medscape, via Fortune (4/5/2026); places: radboard.io, març del 2026</p>
-<p class="num">2016 → 2025&nbsp;&nbsp;·&nbsp;&nbsp;<span>25</span></p>
+<p class="num">2016 → 2025&nbsp;&nbsp;·&nbsp;&nbsp;<span>26</span></p>
 </section>
 <section id="r21" class="entre" data-transition="fade">
 <div class="cap">
-<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
+<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
 <div class="mapa">
 <p class="mp" style="left:0px">00. hola</p>
-<p class="mp" style="left:185px">01. la IA no existeix</p>
-<p class="mp ara" style="left:878px">02. la feina tampoc</p>
-<p class="mp" style="left:1248px">03. morirem tots</p>
+<p class="mp" style="left:180px">01. la IA no existeix</p>
+<p class="mp ara" style="left:899px">02. la feina tampoc</p>
+<p class="mp" style="left:1259px">03. morirem tots</p>
 </div>
 </div>
 <p class="enunciat" style="width:1400px">Parlem de <span class="acc">tasques</span>, no de feines. La feina és una suma de tasques.</p>
-<p class="num">tasques&nbsp;&nbsp;·&nbsp;&nbsp;<span>26</span></p>
+<p class="num">tasques&nbsp;&nbsp;·&nbsp;&nbsp;<span>27</span></p>
 </section>
 <section id="13d45369" data-transition="fade">
 <div class="cap">
-<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
+<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div><div class="sg"></div></div>
 <div class="mapa">
 <p class="mp" style="left:0px">00. hola</p>
-<p class="mp" style="left:185px">01. la IA no existeix</p>
-<p class="mp ara" style="left:878px">02. la feina tampoc</p>
-<p class="mp" style="left:1248px">03. morirem tots</p>
+<p class="mp" style="left:180px">01. la IA no existeix</p>
+<p class="mp ara" style="left:899px">02. la feina tampoc</p>
+<p class="mp" style="left:1259px">03. morirem tots</p>
 </div>
 </div>
 <div class="duo">
@@ -776,32 +807,32 @@ body.amb-graella .osc { opacity: 0; pointer-events: none; }
 </div>
 <img src="media/d2ebe120bcd93b3caf823589937db2a4.png" alt="Tuit de Joanna Maciejewska: vull que la IA em faci la bugada i els plats perquè jo pugui fer art i escriure" style="width:840px;height:680px;object-fit:contain">
 </div>
-<p class="num">maciejewska, 2024&nbsp;&nbsp;·&nbsp;&nbsp;<span>27</span></p>
+<p class="num">maciejewska, 2024&nbsp;&nbsp;·&nbsp;&nbsp;<span>28</span></p>
 </section>
 <section id="r23" class="entre" data-transition="fade">
 <div class="cap">
-<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div></div>
+<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div></div>
 <div class="mapa">
 <p class="mp" style="left:0px">00. hola</p>
-<p class="mp" style="left:185px">01. la IA no existeix</p>
-<p class="mp" style="left:878px">02. la feina tampoc</p>
-<p class="mp ara" style="left:1248px">03. morirem tots</p>
+<p class="mp" style="left:180px">01. la IA no existeix</p>
+<p class="mp" style="left:899px">02. la feina tampoc</p>
+<p class="mp ara" style="left:1259px">03. morirem tots</p>
 </div>
 </div>
 <div class="col">
 <p class="mega num-sec">03</p>
 <h2 class="enunciat">morirem tots:<br>coses per fer mentrestant</h2>
 </div>
-<p class="num"><span>28</span></p>
+<p class="num"><span>29</span></p>
 </section>
 <section id="r24" data-transition="fade">
 <div class="cap">
-<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div></div>
+<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div></div>
 <div class="mapa">
 <p class="mp" style="left:0px">00. hola</p>
-<p class="mp" style="left:185px">01. la IA no existeix</p>
-<p class="mp" style="left:878px">02. la feina tampoc</p>
-<p class="mp ara" style="left:1248px">03. morirem tots</p>
+<p class="mp" style="left:180px">01. la IA no existeix</p>
+<p class="mp" style="left:899px">02. la feina tampoc</p>
+<p class="mp ara" style="left:1259px">03. morirem tots</p>
 </div>
 </div>
 <div class="duo">
@@ -814,59 +845,59 @@ body.amb-graella .osc { opacity: 0; pointer-events: none; }
 </div>
 <img src="media/e864a2a1d3d21ef43aa5c615771b78de.webp" alt="Pròxima Estació" style="width:840px;height:680px;object-fit:contain">
 </div>
-<p class="num">pròxima estació&nbsp;&nbsp;·&nbsp;&nbsp;<span>29</span></p>
+<p class="num">pròxima estació&nbsp;&nbsp;·&nbsp;&nbsp;<span>30</span></p>
 </section>
 <section id="c5722797" class="peu-on" data-transition="fade">
 <div class="cap">
-<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div></div>
+<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div></div>
 <div class="mapa">
 <p class="mp" style="left:0px">00. hola</p>
-<p class="mp" style="left:185px">01. la IA no existeix</p>
-<p class="mp" style="left:878px">02. la feina tampoc</p>
-<p class="mp ara" style="left:1248px">03. morirem tots</p>
+<p class="mp" style="left:180px">01. la IA no existeix</p>
+<p class="mp" style="left:899px">02. la feina tampoc</p>
+<p class="mp ara" style="left:1259px">03. morirem tots</p>
 </div>
 </div>
 <img src="media/b7dbed2327ba48454851cfb413b87bf5.webp" alt="Pàgina d'un butlletí de Pròxima Estació" style="width:1664px;height:680px;object-fit:contain">
 <p class="peu">proximaestacio.cat</p>
-<p class="num">pròxima estació&nbsp;&nbsp;·&nbsp;&nbsp;<span>30</span></p>
+<p class="num">pròxima estació&nbsp;&nbsp;·&nbsp;&nbsp;<span>31</span></p>
 </section>
 <section id="76d75aaf" class="peu-on" data-transition="fade">
 <div class="cap">
-<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div></div>
+<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div></div>
 <div class="mapa">
 <p class="mp" style="left:0px">00. hola</p>
-<p class="mp" style="left:185px">01. la IA no existeix</p>
-<p class="mp" style="left:878px">02. la feina tampoc</p>
-<p class="mp ara" style="left:1248px">03. morirem tots</p>
+<p class="mp" style="left:180px">01. la IA no existeix</p>
+<p class="mp" style="left:899px">02. la feina tampoc</p>
+<p class="mp ara" style="left:1259px">03. morirem tots</p>
 </div>
 </div>
 <img src="media/bcab0ccd156db8bce0d7fdb8adff26a1.webp" alt="Pàgina d'un butlletí de Pròxima Estació" style="width:1664px;height:680px;object-fit:contain">
 <p class="peu">proximaestacio.cat</p>
-<p class="num">pròxima estació&nbsp;&nbsp;·&nbsp;&nbsp;<span>31</span></p>
+<p class="num">pròxima estació&nbsp;&nbsp;·&nbsp;&nbsp;<span>32</span></p>
 </section>
 <section id="cv01" class="peu-on" data-transition="fade">
 <div class="cap">
-<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div></div>
+<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div></div>
 <div class="mapa">
 <p class="mp" style="left:0px">00. hola</p>
-<p class="mp" style="left:185px">01. la IA no existeix</p>
-<p class="mp" style="left:878px">02. la feina tampoc</p>
-<p class="mp ara" style="left:1248px">03. morirem tots</p>
+<p class="mp" style="left:180px">01. la IA no existeix</p>
+<p class="mp" style="left:899px">02. la feina tampoc</p>
+<p class="mp ara" style="left:1259px">03. morirem tots</p>
 </div>
 </div>
 <img src="media/5057be92fe65f544a70f752a67931d23.png" alt="Muzee, la guia de la Casa Vicens en un mòbil: La primera casa de Gaudí, amb els àudios Introducció (0:41) i La història de Casa Vicens (1:21)" style="position:absolute;left:260px;top:232px;width:1399px;height:680px;object-fit:contain">
 <p class="peu">Muzee, guia de la Casa Vicens · muzee.it</p>
 <img data-pas="1" src="media/36c30d716efafb071b72ef3ee5c6ffca.png" data-video="media/374bc3bb2cf63be0aae435353cb47ebb.mp4" data-video-sound="on" alt="Àudio de la guia: Introducció, 0:41" class="fix" style="position:absolute;left:1039px;top:425px;width:49px;height:49px;border-radius:50%;opacity:0">
-<p class="num">casa vicens&nbsp;&nbsp;·&nbsp;&nbsp;<span>32</span></p>
+<p class="num">casa vicens&nbsp;&nbsp;·&nbsp;&nbsp;<span>33</span></p>
 </section>
 <section id="r25" data-transition="fade">
 <div class="cap">
-<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div></div>
+<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div><div class="sg part"></div></div>
 <div class="mapa">
 <p class="mp" style="left:0px">00. hola</p>
-<p class="mp" style="left:185px">01. la IA no existeix</p>
-<p class="mp" style="left:878px">02. la feina tampoc</p>
-<p class="mp ara" style="left:1248px">03. morirem tots</p>
+<p class="mp" style="left:180px">01. la IA no existeix</p>
+<p class="mp" style="left:899px">02. la feina tampoc</p>
+<p class="mp ara" style="left:1259px">03. morirem tots</p>
 </div>
 </div>
 <div class="duo">
@@ -879,17 +910,17 @@ body.amb-graella .osc { opacity: 0; pointer-events: none; }
 </div>
 <img data-pas="1" src="media/68bdc408c347421a0fdd0446cc9037d4.jpg" data-video="media/64a0ff6283912cf40f5e59f50d54b954.mp4" alt="Una noia signant davant la càmera, vídeo de Signària" style="width:840px;height:680px;object-fit:contain" data-video-sound="on">
 </div>
-<p class="num">signària&nbsp;&nbsp;·&nbsp;&nbsp;<span>33</span></p>
+<p class="num">signària&nbsp;&nbsp;·&nbsp;&nbsp;<span>34</span></p>
 </section>
 <section id="r26" class="entre" data-transition="fade">
 <div style="display:flex;flex-direction:column;gap:48px">
 <div class="cap">
-<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div></div>
+<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div><div class="sg part"></div></div>
 <div class="mapa">
 <p class="mp" style="left:0px">00. hola</p>
-<p class="mp" style="left:185px">01. la IA no existeix</p>
-<p class="mp" style="left:878px">02. la feina tampoc</p>
-<p class="mp ara" style="left:1248px">03. morirem tots</p>
+<p class="mp" style="left:180px">01. la IA no existeix</p>
+<p class="mp" style="left:899px">02. la feina tampoc</p>
+<p class="mp ara" style="left:1259px">03. morirem tots</p>
 </div>
 </div>
 <h2 class="titol">Coses per fer mentrestant</h2>
@@ -911,16 +942,16 @@ body.amb-graella .osc { opacity: 0; pointer-events: none; }
 <p class="cos">No val a fer el mateix, però amb IA.</p>
 </div>
 </div>
-<p class="num">tres coses&nbsp;&nbsp;·&nbsp;&nbsp;<span>34</span></p>
+<p class="num">tres coses&nbsp;&nbsp;·&nbsp;&nbsp;<span>35</span></p>
 </section>
 <section id="r22" data-transition="fade">
 <div class="cap">
-<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div></div>
+<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg part"></div></div>
 <div class="mapa">
 <p class="mp" style="left:0px">00. hola</p>
-<p class="mp" style="left:185px">01. la IA no existeix</p>
-<p class="mp" style="left:878px">02. la feina tampoc</p>
-<p class="mp ara" style="left:1248px">03. morirem tots</p>
+<p class="mp" style="left:180px">01. la IA no existeix</p>
+<p class="mp" style="left:899px">02. la feina tampoc</p>
+<p class="mp ara" style="left:1259px">03. morirem tots</p>
 </div>
 </div>
 <div class="duo">
@@ -933,16 +964,16 @@ body.amb-graella .osc { opacity: 0; pointer-events: none; }
 </div>
 <img src="media/d2ebe120bcd93b3caf823589937db2a4.png" alt="Tuit de Joanna Maciejewska: vull que la IA em faci la bugada i els plats perquè jo pugui fer art i escriure" style="width:840px;height:680px;object-fit:contain">
 </div>
-<p class="num">maciejewska, 2024&nbsp;&nbsp;·&nbsp;&nbsp;<span>35</span></p>
+<p class="num">maciejewska, 2024&nbsp;&nbsp;·&nbsp;&nbsp;<span>36</span></p>
 </section>
 <section id="r28" class="entre" data-transition="fade">
 <div class="cap">
-<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div></div>
+<div class="prog"><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div><div class="sg fet part"></div></div>
 <div class="mapa">
 <p class="mp" style="left:0px">00. hola</p>
-<p class="mp" style="left:185px">01. la IA no existeix</p>
-<p class="mp" style="left:878px">02. la feina tampoc</p>
-<p class="mp ara" style="left:1248px">03. morirem tots</p>
+<p class="mp" style="left:180px">01. la IA no existeix</p>
+<p class="mp" style="left:899px">02. la feina tampoc</p>
+<p class="mp ara" style="left:1259px">03. morirem tots</p>
 </div>
 </div>
 <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:32px;align-items:end">
@@ -953,7 +984,7 @@ body.amb-graella .osc { opacity: 0; pointer-events: none; }
 </div>
 </div>
 <img class="dora" src="media/3625747bb155fb5056f75265d57f7af6.png" alt="Doraemon" data-crop="2.0434 48.336% 24.753%" style="position:absolute;width:247px;height:287px;transform:translateX(-50%);box-sizing:border-box;bottom:306px;left:calc(50% + 602.01px)">
-<p class="num">per molts anys&nbsp;&nbsp;·&nbsp;&nbsp;<span>36</span></p>
+<p class="num">per molts anys&nbsp;&nbsp;·&nbsp;&nbsp;<span>37</span></p>
 </section>
 </div></div>
 <script>
