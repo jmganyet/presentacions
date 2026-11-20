@@ -124,6 +124,9 @@ html, body { margin: 0; height: 100%; background: #0c0c0c; overflow: hidden; }
 .retall > img { width: 100%; height: 100%; object-fit: cover; }
 .imgw { animation: puja 1100ms cubic-bezier(.16,1,.3,1) both; animation-delay: calc(260ms + var(--i, 0) * 110ms); }
 video { display: block; }
+.ona { cursor: ew-resize; touch-action: none; }
+.ona .capcal { position: absolute; top: -10px; bottom: -10px; left: 0; width: 3px; margin-left: -1px; background: #8a8a84; opacity: 0; pointer-events: none; transition: opacity .2s; }
+.ona.sona .capcal { opacity: 1; }
 /* Comptador (count-up de Slides): el número es pinta amb un comptador CSS que anima --n de 0 al valor final */
 .compta { counter-reset: n var(--n); }
 .compta::before { content: counter(n); }
@@ -166,6 +169,41 @@ js = r'''
     v.setAttribute('aria-label', img.alt || '');
     v.style.objectFit = img.style.objectFit || 'contain';
     img.replaceWith(v);
+  });
+  // ones de so (captures d'àudio, molt més amples que altes): un clic en un punt de la captura
+  // reprodueix l'àudio des d'aquell punt, i una línia vertical marca on som
+  deck.querySelectorAll('video').forEach(v => {
+    const r = parseFloat(v.style.width) / parseFloat(v.style.height);
+    if (!(r > 6)) return;
+    const w = document.createElement('div');
+    w.className = 'ona';
+    w.setAttribute('style', v.getAttribute('style') || '');
+    if (w.style.position !== 'absolute') w.style.position = 'relative';
+    v.setAttribute('style', 'width:100%;height:100%;object-fit:contain');
+    const cur = document.createElement('div'); cur.className = 'capcal';
+    v.replaceWith(w); w.append(v, cur);
+    const marca = () => { if (v.duration) { cur.style.left = (100 * v.currentTime / v.duration) + '%'; w.classList.toggle('sona', v.currentTime > 0); } };
+    v.addEventListener('timeupdate', marca); v.addEventListener('seeked', marca);
+    // com un scrubber: clic o arrossegament sobre l'ona; l'àudio continua des del punt on es deixa anar
+    const situa = e => {
+      const b = w.getBoundingClientRect();
+      const f = Math.min(1, Math.max(0, (e.clientX - b.left) / b.width));
+      const ves = () => { v.currentTime = f * v.duration; marca(); };
+      if (v.readyState >= 1 && isFinite(v.duration)) ves(); else v.addEventListener('loadedmetadata', ves, { once: true });
+    };
+    let arrossega = false;
+    w.addEventListener('pointerdown', e => {
+      e.preventDefault(); e.stopPropagation();
+      arrossega = true; w.setPointerCapture(e.pointerId);
+      const k = P.findIndex(q => q.video === v);
+      if (k >= pas) { pas = k + 1; actualitza(); }
+      med = v; situa(e); v.play().catch(() => {});
+    });
+    w.addEventListener('pointermove', e => { if (arrossega) situa(e); });
+    const deixa = e => { if (!arrossega) return; arrossega = false; try { w.releasePointerCapture(e.pointerId); } catch (x) {} };
+    w.addEventListener('pointerup', deixa); w.addEventListener('pointercancel', deixa);
+    w.addEventListener('click', e => e.stopPropagation());
+    w.addEventListener('mousedown', e => e.stopPropagation());
   });
   // retalls de Slides (data-crop = zoom, x %, y %): un contenidor que retalla i la imatge ampliada a dins
   deck.querySelectorAll('img[data-crop]').forEach(img => {
